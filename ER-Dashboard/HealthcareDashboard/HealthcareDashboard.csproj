@@ -1,0 +1,608 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CB31EA12-7812-4E82-90A6-8385DF31318A}</ProjectGuid>
+    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HealthcareDashboard</RootNamespace>
+    <AssemblyName>HealthcareDashboard</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.WebPages.Deployment, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\BaseDBController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Admittance.cs">
+      <DependentUpon>DbContextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Allergy.cs">
+      <DependentUpon>DbContextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BodyRegion.cs">
+      <DependentUpon>DbContextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ChatRespons.cs">
+      <DependentUpon>DbContextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ChatRole.cs">
+      <DependentUpon>DbContextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ClinicalNote.cs">
+      <DependentUpon>DbContextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ClinicalNoteType.cs">
+      <DependentUpon>DbContextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Complaint.cs">
+      <DependentUpon>DbContextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ComplaintTestResult.cs">
+      <DependentUpon>DbContextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DbContextModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DbContextModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DbContextModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DbContextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DTO\Mapper.cs" />
+    <Compile Include="Models\DTO\MedTestItem.cs" />
+    <Compile Include="Models\DTO\OrderItem.cs" />
+    <Compile Include="Models\Med.cs">
+      <DependentUpon>DbContextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MedicalData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MedicalData.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Order.cs">
+      <DependentUpon>DbContextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Patient.cs">
+      <DependentUpon>DbContextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PatientAllergy.cs">
+      <DependentUpon>DbContextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Staff.cs">
+      <DependentUpon>DbContextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StaffType.cs">
+      <DependentUpon>DbContextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Test.cs">
+      <DependentUpon>DbContextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TestCategory.cs">
+      <DependentUpon>DbContextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TestType.cs">
+      <DependentUpon>DbContextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewModels\Patient.cs" />
+    <Compile Include="Models\ViewModels\VitalSignsItem.cs" />
+    <Compile Include="Models\ViewModels\VitalSignsModel.cs" />
+    <Compile Include="Models\ViewModels\ItemType.cs" />
+    <Compile Include="Models\Vital.cs">
+      <DependentUpon>DbContextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VitalSignType.cs">
+      <DependentUpon>DbContextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\storage\en-us\MedicalData.mdf" />
+    <Content Include="App_Data\storage\en-us\MedicalData_log.ldf">
+      <DependentUpon>MedicalData.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\storage\ja-jp\MedicalData.mdf" />
+    <Content Include="App_Data\storage\ja-jp\MedicalData_log.ldf">
+      <DependentUpon>MedicalData.mdf</DependentUpon>
+    </Content>
+    <Content Include="Content\ig\structure\images\expand.gif" />
+    <Content Include="Content\ig\structure\images\igBigPauseButton.png" />
+    <Content Include="Content\ig\structure\images\igBigPlayButton.png" />
+    <Content Include="Content\ig\structure\images\igBrowserLogos.png" />
+    <Content Include="Content\ig\structure\images\igCheckbox\ig_checkbox_off.gif" />
+    <Content Include="Content\ig\structure\images\igCheckbox\ig_checkbox_off_hover.gif" />
+    <Content Include="Content\ig\structure\images\igCheckbox\ig_checkbox_on.gif" />
+    <Content Include="Content\ig\structure\images\igCheckbox\ig_checkbox_on_hover.gif" />
+    <Content Include="Content\ig\structure\images\igCheckbox\ig_checkbox_partial.gif" />
+    <Content Include="Content\ig\structure\images\igCheckbox\ig_checkbox_partial_hover.gif" />
+    <Content Include="Content\ig\structure\images\igGrid\blank.png" />
+    <Content Include="Content\ig\structure\images\igGrid\diagonals-medium.png" />
+    <Content Include="Content\ig\structure\images\igGrid\filter-icons-333333.png" />
+    <Content Include="Content\ig\structure\images\igGrid\filter-icons-FFFFFF.png" />
+    <Content Include="Content\ig\structure\images\igGrid\group-by-label-right-edge.png" />
+    <Content Include="Content\ig\structure\images\igg_BottomDragIndicator.png" />
+    <Content Include="Content\ig\structure\images\igg_Filter.gif" />
+    <Content Include="Content\ig\structure\images\igg_FilterApplied.gif" />
+    <Content Include="Content\ig\structure\images\igg_Fix.gif" />
+    <Content Include="Content\ig\structure\images\igg_FixHover.gif" />
+    <Content Include="Content\ig\structure\images\igg_header.gif" />
+    <Content Include="Content\ig\structure\images\igg_sortAsc.gif" />
+    <Content Include="Content\ig\structure\images\igg_sortDesc.gif" />
+    <Content Include="Content\ig\structure\images\igg_Sprite.png" />
+    <Content Include="Content\ig\structure\images\igg_Sum.gif" />
+    <Content Include="Content\ig\structure\images\igg_SumHover.gif" />
+    <Content Include="Content\ig\structure\images\igg_SumPressed.gif" />
+    <Content Include="Content\ig\structure\images\igg_TopDragIndicator.png" />
+    <Content Include="Content\ig\structure\images\igg_Unfix.gif" />
+    <Content Include="Content\ig\structure\images\igg_UnfixHover.gif" />
+    <Content Include="Content\ig\structure\images\igg_UnfixPressed.gif" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\arrow_collapse.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\arrow_expand.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\arrow_redo.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\arrow_undo.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\background_color.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\check.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\cut.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\decrease-font-size.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\html-editor-sprite.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\html.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\html_add.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\html_delete.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\html_go.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\html_valid.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\image_add.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\increase-font-size.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\link.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\link_add.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\link_break.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\page_copy.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\page_paste.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\table-delete-column-icon.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\table-insert-column-icon.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\table.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\table_row_delete.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\table_row_insert.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\text_align_center.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\text_align_justify.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\text_align_left.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\text_align_right.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\text_bold.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\text_color.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\text_horizontalrule.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\text_indent.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\text_indent_remove.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\text_italic.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\text_list_bullets.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\text_list_numbers.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\text_strikethrough.png" />
+    <Content Include="Content\ig\structure\images\igHtmlEditor\text_underline.png" />
+    <Content Include="Content\ig\structure\images\igLoadingSmall.gif" />
+    <Content Include="Content\ig\structure\images\igRating\ig-rating-touch%402.png" />
+    <Content Include="Content\ig\structure\images\igRating\ig-rating-touch.png" />
+    <Content Include="Content\ig\structure\images\igTooltip\igTooltipArrowBottom.png" />
+    <Content Include="Content\ig\structure\images\igTooltip\igTooltipArrowLeft.png" />
+    <Content Include="Content\ig\structure\images\igTooltip\igTooltipArrowRight.png" />
+    <Content Include="Content\ig\structure\images\igTooltip\igTooltipArrows.png" />
+    <Content Include="Content\ig\structure\images\igTooltip\igTooltipArrowTop.png" />
+    <Content Include="Content\ig\structure\images\igVideoPlayer\igBigPauseButton.png" />
+    <Content Include="Content\ig\structure\images\igVideoPlayer\igBigPlayButton.png" />
+    <Content Include="Content\ig\structure\images\igVideoPlayer\igLoadingSmall.gif" />
+    <Content Include="Content\ig\structure\images\igVideoPlayer\igPlayButton24.png" />
+    <Content Include="Content\ig\structure\images\igVideoPlayer\igPlayButton32.png" />
+    <Content Include="Content\ig\structure\images\igVideoPlayer\igPlayButton48.png" />
+    <Content Include="Content\ig\structure\images\igVideoPlayer\igVPBackground.png" />
+    <Content Include="Content\ig\structure\images\igVideoPlayer\igVPBookmarkSprite.png" />
+    <Content Include="Content\ig\structure\images\igVideoPlayer\igWarningIcon.png" />
+    <Content Include="Content\ig\structure\images\ui-anim_basic_16x16.gif" />
+    <Content Include="Content\ig\structure\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\ig\structure\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\ig\structure\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\ig\structure\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\ig\structure\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\ig\structure\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\ig\structure\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\ig\structure\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\ig\structure\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\ig\structure\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\ig\structure\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\ig\structure\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\ig\structure\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\ig\structure\infragistics.css" />
+    <Content Include="Content\ig\structure\jquery-ui.css" />
+    <Content Include="Content\ig\structure\jquery.ui.all.css" />
+    <Content Include="Content\ig\structure\jquery.ui.base.css" />
+    <Content Include="Content\ig\structure\jquery.ui.core.css" />
+    <Content Include="Content\ig\structure\jquery.ui.css" />
+    <Content Include="Content\ig\structure\jquery.ui.datepicker.css" />
+    <Content Include="Content\ig\structure\jquery.ui.slider.css" />
+    <Content Include="Content\ig\structure\jquery.ui.theme.css" />
+    <Content Include="Content\ig\structure\modules\infragistics.ui.chart.css" />
+    <Content Include="Content\ig\structure\modules\infragistics.ui.combo.css" />
+    <Content Include="Content\ig\structure\modules\infragistics.ui.dialog.css" />
+    <Content Include="Content\ig\structure\modules\infragistics.ui.editors.css" />
+    <Content Include="Content\ig\structure\modules\infragistics.ui.grid.css" />
+    <Content Include="Content\ig\structure\modules\infragistics.ui.htmleditor.css" />
+    <Content Include="Content\ig\structure\modules\infragistics.ui.layout.css" />
+    <Content Include="Content\ig\structure\modules\infragistics.ui.map.css" />
+    <Content Include="Content\ig\structure\modules\infragistics.ui.rating.css" />
+    <Content Include="Content\ig\structure\modules\infragistics.ui.shared.css" />
+    <Content Include="Content\ig\structure\modules\infragistics.ui.tilemanager.css" />
+    <Content Include="Content\ig\structure\modules\infragistics.ui.toolbar.css" />
+    <Content Include="Content\ig\structure\modules\infragistics.ui.tree.css" />
+    <Content Include="Content\ig\structure\modules\infragistics.ui.upload.css" />
+    <Content Include="Content\ig\structure\modules\infragistics.ui.validator.css" />
+    <Content Include="Content\ig\structure\modules\infragistics.ui.videoplayer.css" />
+    <Content Include="Content\ig\themes\infragistics\images\datepicker.gif" />
+    <Content Include="Content\ig\themes\infragistics\images\gradient_1.png" />
+    <Content Include="Content\ig\themes\infragistics\images\gradient_2.png" />
+    <Content Include="Content\ig\themes\infragistics\images\gradient_3.png" />
+    <Content Include="Content\ig\themes\infragistics\images\gradient_4.png" />
+    <Content Include="Content\ig\themes\infragistics\images\gradient_5.png" />
+    <Content Include="Content\ig\themes\infragistics\images\gradient_6.png" />
+    <Content Include="Content\ig\themes\infragistics\images\gradient_7.png" />
+    <Content Include="Content\ig\themes\infragistics\images\icon_sprite.png" />
+    <Content Include="Content\ig\themes\infragistics\images\igRating\ig-rating.png" />
+    <Content Include="Content\ig\themes\infragistics\images\igVideoPlayer\igVideoPlayerIcons.png" />
+    <Content Include="Content\ig\themes\infragistics\images\igVideoPlayer\igVPBackground.png" />
+    <Content Include="Content\ig\themes\infragistics\images\igVideoPlayer\igVPBookmarkSprite.png" />
+    <Content Include="Content\ig\themes\infragistics\images\progress_bar.gif" />
+    <Content Include="Content\ig\themes\infragistics\images\slider_handles.png" />
+    <Content Include="Content\ig\themes\infragistics\images\slider_h_bg.gif" />
+    <Content Include="Content\ig\themes\infragistics\images\slider_v_bg.gif" />
+    <Content Include="Content\ig\themes\infragistics\images\tab_bg.gif" />
+    <Content Include="Content\ig\themes\infragistics\images\ui-anim_basic_16x16.gif" />
+    <Content Include="Content\ig\themes\infragistics\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="Content\ig\themes\infragistics\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="Content\ig\themes\infragistics\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="Content\ig\themes\infragistics\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="Content\ig\themes\infragistics\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\ig\themes\infragistics\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="Content\ig\themes\infragistics\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\ig\themes\infragistics\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="Content\ig\themes\infragistics\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\ig\themes\infragistics\infragistics.theme.css" />
+    <Content Include="Content\ig\themes\metro\images\icon_sprite.png" />
+    <Content Include="Content\ig\themes\metro\images\igGrid\filter-icons-858585.png" />
+    <Content Include="Content\ig\themes\metro\images\igGrid\ig-rating-touch%402.png" />
+    <Content Include="Content\ig\themes\metro\images\igGrid\ig-rating-touch.png" />
+    <Content Include="Content\ig\themes\metro\images\igGrid\ig-rating.png" />
+    <Content Include="Content\ig\themes\metro\images\igHtmlEditor\html-editor-sprite.png" />
+    <Content Include="Content\ig\themes\metro\images\igRating\ig-rating-touch%402.png" />
+    <Content Include="Content\ig\themes\metro\images\igRating\ig-rating-touch.png" />
+    <Content Include="Content\ig\themes\metro\images\igRating\ig-rating.png" />
+    <Content Include="Content\ig\themes\metro\images\igRating\SOURCE_ig-rating-touch%402.png" />
+    <Content Include="Content\ig\themes\metro\images\igRating\SOURCE_ig-rating-touch.png" />
+    <Content Include="Content\ig\themes\metro\images\igRating\SOURCE_ig-rating.png" />
+    <Content Include="Content\ig\themes\metro\images\igTooltip\igTooltipArrows.png" />
+    <Content Include="Content\ig\themes\metro\images\igVideoPlayer\igVideoPlayerIcons_858585.png" />
+    <Content Include="Content\ig\themes\metro\images\igVideoPlayer\igVideoPlayerIcons_ffffff.png" />
+    <Content Include="Content\ig\themes\metro\images\igVideoPlayer\igVPBookmarkSprite.png" />
+    <Content Include="Content\ig\themes\metro\images\ui-anim_basic_16x16.gif" />
+    <Content Include="Content\ig\themes\metro\images\ui-icons_00AADE_256x240.png" />
+    <Content Include="Content\ig\themes\metro\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\ig\themes\metro\images\ui-icons_565656_256x240.png" />
+    <Content Include="Content\ig\themes\metro\images\ui-icons_858585_256x240.png" />
+    <Content Include="Content\ig\themes\metro\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\ig\themes\metro\infragistics.theme.css" />
+    <Content Include="Content\images\about-icons-large.png" />
+    <Content Include="Content\images\about-icons-small.png" />
+    <Content Include="Content\images\HeaderIcon.png" />
+    <Content Include="Content\images\igniteui.png" />
+    <Content Include="Content\images\infragistics.png" />
+    <Content Include="Content\images\medTest\MRI14.png" />
+    <Content Include="Content\images\sprite-main.png" />
+    <Content Include="Content\images\tileIcons\tileOrders.png" />
+    <Content Include="Content\images\tileIcons\tilePatients.png" />
+    <Content Include="Content\images\tileIcons\tileTests.png" />
+    <Content Include="Content\images\tileIcons\tileVitals.png" />
+    <Content Include="Content\Layout3.css" />
+    <Content Include="Content\Layout2.css" />
+    <Content Include="Content\Dashboard.css" />
+    <Content Include="Content\images\medTest\Chest1.png" />
+    <Content Include="Content\images\medTest\Chest10.png" />
+    <Content Include="Content\images\medTest\Chest11.png" />
+    <Content Include="Content\images\medTest\Chest12.png" />
+    <Content Include="Content\images\medTest\Chest13.png" />
+    <Content Include="Content\images\medTest\Chest2.png" />
+    <Content Include="Content\images\medTest\Chest3.png" />
+    <Content Include="Content\images\medTest\Chest4.png" />
+    <Content Include="Content\images\medTest\Chest5.png" />
+    <Content Include="Content\images\medTest\Chest6.png" />
+    <Content Include="Content\images\medTest\Chest7.png" />
+    <Content Include="Content\images\medTest\Chest8.png" />
+    <Content Include="Content\images\medTest\Chest9.png" />
+    <Content Include="Content\images\medTest\Larm1.png" />
+    <Content Include="Content\images\medTest\Larm2.png" />
+    <Content Include="Content\images\medTest\Larm3.png" />
+    <Content Include="Content\images\medTest\Larm4.png" />
+    <Content Include="Content\images\medTest\Larm5.png" />
+    <Content Include="Content\images\medTest\Larm6.png" />
+    <Content Include="Content\images\medTest\Larm7.png" />
+    <Content Include="Content\images\medTest\Lleg1.png" />
+    <Content Include="Content\images\medTest\Lleg2.png" />
+    <Content Include="Content\images\medTest\Lleg3.png" />
+    <Content Include="Content\images\medTest\Lleg4.png" />
+    <Content Include="Content\images\medTest\Lleg5.png" />
+    <Content Include="Content\images\medTest\Lleg6.png" />
+    <Content Include="Content\images\medTest\Lleg7.png" />
+    <Content Include="Content\images\medTest\MRI1.png" />
+    <Content Include="Content\images\medTest\MRI10.png" />
+    <Content Include="Content\images\medTest\MRI11.png" />
+    <Content Include="Content\images\medTest\MRI12.png" />
+    <Content Include="Content\images\medTest\MRI13.png" />
+    <Content Include="Content\images\medTest\MRI2.png" />
+    <Content Include="Content\images\medTest\MRI3.png" />
+    <Content Include="Content\images\medTest\MRI4.png" />
+    <Content Include="Content\images\medTest\MRI5.png" />
+    <Content Include="Content\images\medTest\MRI6.png" />
+    <Content Include="Content\images\medTest\MRI7.png" />
+    <Content Include="Content\images\medTest\MRI8.png" />
+    <Content Include="Content\images\medTest\MRI9.png" />
+    <Content Include="Content\images\medTest\Rarm1.png" />
+    <Content Include="Content\images\medTest\Rarm2.png" />
+    <Content Include="Content\images\medTest\Rarm3.png" />
+    <Content Include="Content\images\medTest\Rarm4.png" />
+    <Content Include="Content\images\medTest\Rarm5.png" />
+    <Content Include="Content\images\medTest\Rarm6.png" />
+    <Content Include="Content\images\medTest\Rarm7.png" />
+    <Content Include="Content\images\medTest\Rleg1.png" />
+    <Content Include="Content\images\medTest\Rleg2.png" />
+    <Content Include="Content\images\medTest\Rleg3.png" />
+    <Content Include="Content\images\medTest\Rleg4.png" />
+    <Content Include="Content\images\medTest\Rleg5.png" />
+    <Content Include="Content\images\medTest\Rleg6.png" />
+    <Content Include="Content\images\medTest\Rleg7.png" />
+    <Content Include="Content\Layout1.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Scripts\app\ControlManager.js" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\app\i18n\en.js" />
+    <Content Include="Scripts\app\i18n\ja.js" />
+    <Content Include="Scripts\app\Localizer.js" />
+    <Content Include="Scripts\app\StateEngine.js" />
+    <Content Include="Scripts\app\ControlManager.js" />
+    <Content Include="Scripts\app\fastClick.js" />
+    <Content Include="Scripts\app\i18n\en.js" />
+    <Content Include="Scripts\app\i18n\ja.js" />
+    <Content Include="Scripts\app\Localizer.js" />
+    <Content Include="Scripts\app\StateEngine.js" />
+    <Content Include="Scripts\fastclick.js" />
+    <Content Include="Scripts\ig\extensions\infragistics.datasource.knockoutjs.js" />
+    <Content Include="Scripts\ig\extensions\infragistics.ui.combo.knockout-extensions.js" />
+    <Content Include="Scripts\ig\extensions\infragistics.ui.datachart.knockout-extensions.js" />
+    <Content Include="Scripts\ig\extensions\infragistics.ui.editors.knockout-extensions.js" />
+    <Content Include="Scripts\ig\extensions\infragistics.ui.grid.knockout-extensions.js" />
+    <Content Include="Scripts\ig\extensions\infragistics.ui.tree.knockout-extensions.js" />
+    <Content Include="Scripts\ig\i18n\infragistics-bg.js" />
+    <Content Include="Scripts\ig\i18n\infragistics-de.js" />
+    <Content Include="Scripts\ig\i18n\infragistics-es.js" />
+    <Content Include="Scripts\ig\i18n\infragistics-fr.js" />
+    <Content Include="Scripts\ig\i18n\infragistics-ja.js" />
+    <Content Include="Scripts\ig\i18n\infragistics-ru.js" />
+    <Content Include="Scripts\ig\modules\i18n\regional\infragistics.ui.regional-i18n.js" />
+    <Content Include="Scripts\ig\infragistics.core.js" />
+    <Content Include="Scripts\ig\infragistics.dv.js" />
+    <Content Include="Scripts\ig\infragistics.lob.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery.blockUI.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\MicrosoftAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftAjax.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.js" />
+    <Content Include="Scripts\modernizr-2.5.3.min.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery.blockUI.js" />
+    <Content Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\modernizr-2.5.3.min.js" />
+    <Content Include="tileOrders.png" />
+    <Content Include="tilePatients.png" />
+    <Content Include="tileTests.png" />
+    <Content Include="tileVitals.png" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\MicrosoftAjax.js" />
+    <Content Include="Scripts\MicrosoftAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\DbContextModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DbContextModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Models\DbContextModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DbContextModel.cs</LastGenOutput>
+    </None>
+    <Content Include="Views\Home\Vitals.cshtml" />
+    <Content Include="Views\Home\Patients.cshtml" />
+    <Content Include="Views\Home\MedTests.cshtml" />
+    <Content Include="Views\Home\Orders.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Models\MedicalData.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MedicalData.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

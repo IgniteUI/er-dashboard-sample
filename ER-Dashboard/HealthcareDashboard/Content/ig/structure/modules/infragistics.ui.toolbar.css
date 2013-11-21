@@ -1,0 +1,11 @@
+﻿.ui-igtoolbar{overflow:hidden;display:inline-block;padding:.3em;margin-right:.3em}
+.ui-igtoolbar-wrap{margin-bottom:5px}
+.ui-igtoolbar ul{list-style:none outside none;margin:0;padding:3px}
+.ui-igtoolbar ul li{margin-left:.3em}
+.ui-igtoolbar .ig-toolbar-separator{overflow-x:hidden;overflow-y:hidden;width:0;border-width:0 1px 0 0;background:transparent;margin:0 .3em 0 .2em;display:inline-block;height:14px;position:relative;text-indent:-1000px;top:1px}
+.ui-igtoolbar-collapse-btn{width:12px;height:24px;float:left;cursor:pointer}
+.ui-igtoolbar .ui-button{height:100%}
+.ui-igtoolbar .ui-igcombo{margin-right:.3em}
+.ui-igtoolbar,.ui-igtoolbar>div,.ui-igtoolbar>span,.ui-igtoolbar .ui-igbutton,.ui-igtoolbar .ui-splitbutton,.ui-ightmleditor .ui-splitbutton .ui-button.ui-splitbutton-arrow,.ui-igtoolbar .ui-igcombo{zoom:1;*display:inline!important}
+.ui-igtoolbar.hidden,.ui-igtoolbar.hidden>div,.ui-igtoolbar.hidden>span,.ui-igtoolbar.hidden .ui-igbutton,.ui-igtoolbar.hidden .ui-splitbutton,.ui-ightmleditor .hidden .ui-splitbutton .ui-button.ui-splitbutton-arrow,.ui-igtoolbar.hidden .ui-igcombo{*display:none!important}
+.ui-igtrialwatermark{width:160px;height:20px;background-image:url(../images/trial.png);opacity:.25;filter:alpha(opacity=25);-ms-filter:"alpha(opacity=25)";-khtml-opacity:.25;-moz-opacity:.25}

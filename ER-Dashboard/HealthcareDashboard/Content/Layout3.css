@@ -1,0 +1,26 @@
+﻿/*
+    Styles for individual tiles. There are different styles for each tile 
+    for the three predefined views of the dashboard.
+*/
+/*#tilePatients 
+{
+    width: 300px; 
+    height: 570px;  
+}
+
+#tileVitals 
+{
+    margin-left: 20px;
+    width: 620px; 
+}
+        
+#tileTests
+{
+    margin-left: 20px;
+    width: 620px; 
+}
+
+#tileOrders
+{
+    visibility: hidden;
+}*/

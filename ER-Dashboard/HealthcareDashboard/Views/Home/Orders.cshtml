@@ -1,0 +1,146 @@
+﻿<script type="text/javascript">
+    function OrdersUI(localizer) {
+        var thisTile = this;
+
+        var tileElement = "#tileOrders";
+        var chartSelector = "#chartRMed";
+        var gridContainer = "#gridRMedContainer";
+        var gridSelector = "#gridRMed";
+
+        var locOrders = localizer.get("Orders");
+
+        this.dataSource = null;
+
+        //  ------------------------------ Initialize grid manager
+        var gridManager = new ControlManager({
+            selector: gridContainer,
+            create: function(data) {
+                $(gridContainer).show();
+                $(gridSelector).igGrid({
+                    width: "100%",
+                    height: "100%",
+                    autoGenerateColumns: false,
+                    dataSource: data.data(),
+                    columns: [
+                        { headerText: locOrders.Time, key: "Timestamp", dataType: "date", width: "20%" },
+                        { headerText: locOrders.Medicine, key: "MedName", dataType: "string", width: "20%"  },
+                        { headerText: locOrders.Dosage, key: "Dosage", dataType: "string", width: "20%"  },
+                        { headerText: locOrders.Unit, key: "Unit", dataType: "string", width: "20%"  },
+                        { headerText: locOrders.Frequency, key: "Frequency", dataType: "string", width: "20%"  }
+                    ],
+                    features: [
+                        {
+                            name: "Sorting",
+                            type: "local",
+                            columnSettings : [
+                                { columnKey: "Time", allowSorting: true }, 
+                                { columnKey: "TestTypeName",  allowSorting: true }, 
+                                { columnKey: "Result",  allowSorting: false }
+                            ]
+                        }, {
+                            name: "GroupBy",
+                            type: "local",
+                            initialExpand: false,
+                            groupByAreaVisibility: "hidden",
+                            columnSettings: [{ columnKey: "TestTypeName", isGroupBy: true }]
+                        }
+                    ]
+                });
+            },
+            updateData: function(data) {
+                $(gridSelector).igGrid("dataSourceObject", data.data());
+                $(gridSelector).igGrid("dataBind");
+            }
+        });
+
+        //  Initialize view mode
+        this.viewMode = new ViewMode({
+            viewMode: "grid",
+
+            modeHandlers: {
+                "grid": {
+                    name: "grid",
+                    hide: gridManager.hide,
+                    show: gridManager.show,
+                    icon: '@Url.Content("~/Content/images/GridMode.png")',
+                    nextMode: "chart"
+                }
+            },
+
+            viewModeChanged: function (viewMode) { 
+                $("#btnRGridChart img").attr("src", this.modeHandlers[viewMode].icon);
+            }
+        });
+        //  Initialize chart series mode
+  
+        
+        //  Initialize view
+  
+        $(gridContainer).hide();
+  
+        //  ------------------------------ Public Methods
+        this.showOrders = function (selectedAdmittance) {
+            initDataSource(selectedAdmittance);
+            $("#RcategoryButtons").hide();
+        };
+
+        this.layoutChanged = function (selectedLayout) {
+            $(tileElement).unblock();
+        };
+
+        //  ------------------------------ Private Methods
+        function initDataSource(selectedAdmittance) {
+            $.post('@Url.Action("GetOrdersData")', { "admittanceID": selectedAdmittance.AdmittanceID })
+                .success(testsDataSuccess);
+        }
+
+        function testsDataSuccess(data, textStatus, jqXHR) {
+            //  Wrap new patient admittance data in a data source object
+            var ds = new $.ig.DataSource({
+                type: "json",
+                dataSource: data,
+                schema: {
+                    fields: [
+                        { name: "ID" },
+                        { name: "AdmittanceID" },
+                        { name: "MedID" },
+                        { name: "MedName" },
+                        { name: "Dosage" },
+                        { name: "Unit" },
+                        { name: "Frequency" },
+                        { name: "Indication" },
+                        { name: "Timestamp", type: "date" }
+                    ]
+                }
+            });
+            ds.dataBind();
+            //  Notify the tile that data has been updated
+            dataUpdated(ds);
+        }
+        
+        //  Implments logic to notify all controls that data has been updated and
+        //  updates the whole view in general
+        function dataUpdated(data) {
+            thisTile.dataSource = data;
+            gridManager.update(data);   
+            thisTile.viewMode.UpdateCurrentView(data);         
+        }
+    }
+</script>
+
+<div class="tileHeading ordersHeading" id="ordersTileHeading">
+        <span class="subHeadingIcon ordersHeadingIcon">&nbsp;</span>
+        <label class="tileUIElement tileTitle" data-localize="Orders">Orders</label>
+</div>
+<div class="tileContent">
+    <div id="gridRMedContainer" style="width: 100%; height: 100%" >
+        <table id="gridRMed"></table>
+    </div>
+    <div id="chartRMed"></div>
+</div>
+<div class="minimizedContainer">
+     <div class="innerContainer">
+        <span data-localize="Orders">Medical Orders</span>
+         <img src="@Url.Content("~/Content/images/tileIcons/tileOrders.png")" alt="orders"/><br>
+    </div>
+</div>

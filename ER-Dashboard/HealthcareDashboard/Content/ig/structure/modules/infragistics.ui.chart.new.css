@@ -1,0 +1,16 @@
+﻿.ui-chart-title{font-family:Verdana,Arial,Helvetica,sans-serif;font-size:16px;color:#696969;margin:5px 0 5px 0}
+.ui-chart-subtitle{font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;color:#696969;margin:0 0 5px 0}
+.ui-chart-horizontal-axis-title{font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;color:#696969;margin:0 0 5px 0}
+.ui-chart-vertical-axis-title{font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;color:#696969;margin:0 0 0 5px}
+.ui-chart-container{font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;border-width:0}
+.ui-horizontal-axis-labels{font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;vertical-align:top;margin:5px 0 5px 0;color:#9B9B9B}
+.ui-vertical-axis-labels{font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;text-align:right;margin:0 5px 0 5px;color:#9B9B9B}
+.ui-angular-axis-labels{margin:5px;color:#9B9B9B}
+.ui-radial-axis-labels{vertical-align:top;margin:5px 0 5px 0;color:#9B9B9B}
+.ui-chart-axis{border-color:#D0D0D0;background-color:#D0D0D0}
+.ui-chart-category-axis-tick{height:5px;color:#D0D0D0}
+.ui-chart-area-fill-opacity{opacity:.7}
+.ui-chart-aligned-gridlines{visibility:visible}
+.ui-chart-axis-stroke,.ui-chart-axis-major-line{border-color:transparent}
+.ui-chart-tooltip{-moz-box-shadow:0 0 2px #555;-webkit-box-shadow:0 0 2px #555;box-shadow:0 0 2px #555;padding:5px 8px;font-size:12px;font-family:Verdana,Helvetica,sans-serif}
+.ui-igtrialwatermark{width:160px;height:20px;background-image:url(../images/trial.png);opacity:.25;filter:alpha(opacity=25);-ms-filter:"alpha(opacity=25)";-khtml-opacity:.25;-moz-opacity:.25}

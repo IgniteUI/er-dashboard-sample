@@ -1,0 +1,219 @@
+﻿<script type="text/javascript">
+    function PatientsUI() {
+        this.admittanceSelected = null;
+        this.index;
+        var tileElement = "#tilePatients", self = this;
+        var gridSelector = "#gridPatients";
+        var locPatients = loc.get("Patients");
+
+        //  Init UI
+        initGrid();
+
+        //  Private methods
+        function initGrid() {
+
+            //  Enable styling of BlockUI elements by CSS
+            $.blockUI.defaults.css = {};
+            //$.blockUI.defaults.overlayCSS = {};
+            $(gridSelector).igGrid({
+                width: "100%",
+                height: "100%",
+                dataSource: '@Url.Action("GetPatients")',
+                dataSourceType: 'remoteUrl',
+                autoGenerateColumns: false,
+                autoGenerateLayouts: false,
+                renderCheckboxes: true,
+                responseDataKey: "Results",
+                primaryKey: "PatientID",
+                autoCommit: true,
+                generateCompactJSONResponse: false,
+                enableUTCDates: true,
+                columns: [{
+                    key: "PatientID",
+                    dataType: "string",
+                    width:"0%"
+                }, {
+                    key: "Name",
+                    dataType: "string",
+                    headerText: locPatients["Name"],
+                    width: getPatienceNameColumnWidth()
+                },{
+                    key: "Visited",
+                    dataType: "bool",
+                    headerText: locPatients["Visited"],
+                    width: "10%"
+                }, {
+                    key: "Severity",
+                    dataType: "string",
+                    headerText: locPatients["Severity"],
+                    width: "15%"
+                }, {
+                    key: "Diagnosis",
+                    dataType: "string",
+                    headerText: locPatients["Diagnosis"],
+                    width: "30%"
+                }, {
+                    key: "Disposition",
+                    dataType: "string",
+                    headerText: locPatients["Disposition"],
+                    width: "25%"
+                }],
+                features: [{
+                    name: "Sorting",
+                    type: "local",
+                    sortUrlKey: "sort",
+                    sortUrlKeyAscValue: "asc",
+                    sortUrlKeyDescValue: "desc",
+                    columnSettings: [{
+                            columnIndex: -1,
+                            allowSorting: true,
+                            columnKey: "Name"
+                        }, {
+                            columnIndex: -1,
+                            allowSorting: true,
+                            columnKey: "Visited"
+                        }, {
+                            columnIndex: -1,
+                            allowSorting: false,
+                            columnKey: "Severity"
+                        }, {
+                            columnIndex: -1,
+                            allowSorting: false,
+                            columnKey: "Diagnosis"
+                        }, {
+                            columnIndex: -1,
+                            allowSorting: false,
+                            columnKey: "Disposition"
+                    }],
+                    }, {
+                        name: "Updating",
+                        editMode: "cell",
+                        enableAddRow: false,
+                        enableDeleteRow: false,
+                        columnSettings: [{
+                            columnKey: "Name",
+                            readOnly: true
+                        }, {
+                            columnKey: "Visited",
+                            readOnly: false
+                        }, {
+                            columnKey: "Severity",
+                            readOnly: true
+                         }, {
+                            columnKey: "Diagnosis",
+                            readOnly: true
+                         }, {
+                            columnKey: "Disposition",
+                            readOnly: true
+                         }
+                    ]
+                }, {
+                    name: "Selection",
+                    mode: "row",
+                    multipleSelection: false
+                }, {
+                    name: "Resizing",
+                    deferredResizing: true,
+                    allowDoubleClickToResize: true,
+                    columnSettings: [
+                        { columnKey: "Name" },
+                        { columnKey: "Severity" },
+                        { columnKey: "Diagnosis" },
+                        { columnKey: "Disposition" },
+                        { columnKey: "Visited" }
+                    ]
+                }, {
+                    name: "Hiding",
+                    columnSettings: [
+                        { columnKey: "PatientID", hidden: true, allowHiding: false },
+                        { columnKey: "Name" , allowHiding: false},
+                        { columnKey: "Severity", allowHiding: false, hidden: getPatienceGridColumnHidden() },
+                        { columnKey: "Diagnosis", allowHiding: false },
+                        { columnKey: "Disposition", allowHiding: false, hidden: getPatienceGridColumnHidden() },
+                        { columnKey: "Visited", allowHiding: false, hidden: getPatienceGridColumnHidden() }
+                    ]
+                }],
+
+                rowTemplate: "<tr><td>${PatienceID}</td><td>${Name}</td><td>{{html Visited}}</td><td><span class=\'${SeverityImageUrl}\' /></td><td>${Diagnosis}</td><td>${Disposition}</td></tr>",
+                localSchemaTransform: false,
+
+                dataRendered: function (evt, ui) {
+                    $(gridSelector).igGridSelection("selectRow", 0);
+                    var selectedAdmittance = ui.owner.dataSource.dataView()[0];
+                    onAdmittanceSelected(selectedAdmittance);
+                }
+            });
+            function getPatienceGridColumnHidden() {
+                if ($(window).width() < 800) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            function getPatienceNameColumnWidth() {
+                if ($(window).width() < 1000) {
+                    return "50%";
+                } else {
+                    return "20%";
+                }
+            }
+        }
+   
+        function onAdmittanceSelected(selectedAdmittance) {
+            if (this.admittanceSelected != null) {
+                this.admittanceSelected(selectedAdmittance);
+            }
+        }
+        function changePatientById(activeRowId) {
+            var selectedAdmittance = $("#gridPatients").data("igGrid").findRecordByKey(parseInt(activeRowId)), index;
+            onAdmittanceSelected(selectedAdmittance);
+            index = self.layoutChangedIndex();
+            if (index === undefined) {
+                index = 1;
+            }
+            //Once the new patience is selected we wait with tile maximizing as the data is still not here. We are not calling this function from the AJAX callbacks, as it will need more logic which won't change the performance so much.
+            setTimeout(function () {
+                $("#layoutContainer").igTileManager('maximize', $("#layoutContainer").children("[data-index=" + index + "]"));
+            }, 100);
+        }
+
+        this.layoutChangedIndex = function (index) {
+            if (index !== undefined && index !==  null) {
+                self.index = index;
+            } else {
+                return self.index;
+            }
+        };
+        //Rempve Button and select on click
+        $(document).delegate("#gridPatients", "iggridselectionrowselectionchanged", function (evt, ui) {
+            var selectedRow = $("#gridPatients").igGridSelection("selectedRow");
+            changePatientById(selectedRow.id);
+            $(".nonPatients").unblock();
+        });
+        $(document).delegate("#gridPatients", "iggridsortingcolumnsorted", function (evt, ui) {
+            $("#gridPatients").igGridSelection("clearSelection");
+            $(".nonPatients").block({ message: locIndex["PatientsSelection"] });
+        });
+        $(document).delegate("#gridPatients", "iggridupdatingeditcellstarted", function (evt, ui) {
+            var selectedRow = $("#gridPatients").igGridSelection("selectedRow");
+            if (selectedRow.id !== ui.rowID) {
+                $("#gridPatients").igGridSelection("selectRow", $(ui.editor).closest("tr").index());
+            }
+        });
+
+    }
+</script>
+
+<div class="tileHeading patienceHeading">
+        <span class="subHeadingIcon patientsHeadingIcon">&nbsp;</span>
+        <label class="tileTitle" data-localize="PatientsAdmissions">Patients Admissions</label>
+</div>
+<div id='patientsTileContent' class="tileContent">
+        <table id="gridPatients"></table>
+</div>
+<div class="minimizedContainer">
+     <div class="innerContainer">
+        <span data-localize="PatientsAdmissions">Patients</span>
+         <img src="@Url.Content("~/Content/images/tileIcons/tilePatients.png")" alt="patients"/>
+    </div>
+</div>
