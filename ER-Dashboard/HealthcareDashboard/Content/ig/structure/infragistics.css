@@ -243,7 +243,7 @@ button.ui-button::-moz-focus-inner{border:0;padding:0}
 .ui-iggrid .ui-ig-altrecord{background-color:rgba(153,153,153,0.2)}
 .ui-iggrid .ui-iggrid-footer,.ui-iggrid .ui-iggrid-toolbar{font-weight:normal;text-align:left;display:block}
 .ui-iggrid th,.ui-iggrid th.ui-state-default,.ui-iggrid th.ui-state-hover,.ui-iggrid th.ui-state-active{text-align:left;white-space:nowrap}
-.ui-iggrid table tbody td,.ui-iggrid .ui-iggrid-header,.ui-iggrid table th{padding:4px}
+.ui-iggrid table tbody td,.ui-iggrid .ui-iggrid-header,.ui-iggrid table th{padding:10px}
 .ui-iggrid .ui-iggrid-tablebody td{border-width:1px}
 .ui-iggrid table thead a{text-decoration:none}
 .ui-iggrid td.ui-state-default,.ui-iggrid td.ui-state-highlight,.ui-iggrid td.ui-state-hover{border-width:1px;font-weight:normal}
@@ -269,7 +269,7 @@ a.ui-iggrid-pagelink,a.ui-iggrid-pagelinkcurrent{line-height:1.4em}
 .ui-iggrid-pagelist{padding:0 6px}
 .ui-iggrid-pagelist li{margin:0 .1em}
 .ui-iggrid .ui-iggrid-filterbutton{float:left}
-.ui-iggrid th .ui-iggrid-filterbutton,.ui-iggrid .ui-iggrid-filterbuttonright{float:right;margin:0}
+.ui-iggrid th .ui-iggrid-filterbutton,.ui-iggrid .ui-iggrid-filterbuttonright{float:right;margin:0 0 0 4px}
 .ui-iggrid-filtercell{padding:4px 0;white-space:nowrap}
 .ui-iggrid-filtercell .ui-igedit-field{text-align:left}
 .ui-iggrid-scrolldiv{border-top:none!important;position:relative;min-height:0%;;background-color:#F3F3F3;border-bottom:1px solid #DCDCDC}
@@ -327,7 +327,7 @@ body[dir="rtl"] .ui-iggrid-filtericoncontainer,body[dir="rtl"] .ui-iggrid-featur
 .ui-iggrid .ui-iggrid-pagesizedropdown.ui-state-default,.ui-iggrid .ui-iggrid-pagedropdowncontainer.ui-state-default{background:#fff none}
 .ui-iggrid .ui-igedit .ui-igedit-field{background:#fff none;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 .ui-iggrid .ui-igedit-list .ui-igedit-listitem{font-size:1em;line-height:1.4em}
-.ui-iggrid .ui-igedit-field{padding:0 0 0 2px!important}
+.ui-iggrid .ui-igedit-field{padding:0 0 0 2!important}
 .touch .ui-iggrid-results .ui-igedit-container,.touch .ui-iggrid-pagedropdowncontainer .ui-igedit-container{width:5em!important}
 .touch .ui-iggrid-pager .ui-igedit-container .ui-igedit-field,.touch .ui-iggrid-results .ui-igedit-container .ui-igedit-field,.touch .ui-iggrid-pager .ui-igedit-container .ui-igedit-button,.touch .ui-iggrid-results .ui-igedit-container .ui-igedit-button{height:1.4em!important;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 .touch .ui-iggrid-pager .ui-igedit-container .ui-igedit-field,.touch .ui-iggrid-results .ui-igedit-container .ui-igedit-field{width:3.6em!important}
@@ -385,7 +385,6 @@ body[dir="rtl"] .ui-iggrid-filtericoncontainer,body[dir="rtl"] .ui-iggrid-featur
 .ui-iggrid-filterdd,.ui-iggrid-featurechooser-dropdown-dialog,.ui-iggrid-hiding-dropdown-dialog,.ui-iggrid-columnmoving-dropdown-dialog,.ui-iggrid-summaries-dialog,.ui-igpivot-filterdropdown,.ui-igpivot-metadatadropdown{padding:1px;box-shadow:0 0 5px #555;z-index:20000}
 .ui-iggrid-filterddlist li,.ui-iggrid-hiding-dropdown-list li,.ui-iggrid-columnmoving-dropdown-list li,.ui-iggrid-summaries-dropdown-listcontainer li{position:relative;cursor:default;border:0;padding-right:25px;padding-left:25px;line-height:1.5em;margin-bottom:1px}
 .ui-iggrid-filtericoncontainer,.ui-iggrid-columnmovingiconcontainer{margin-left:-22px;margin-top:-8px;position:absolute;top:50%}
-.ui-iggrid-columnmovingiconcontainer .ui-icon{top:0;left:0}
 .ui-iggrid-featurechooser-li-iconcontainer{position:relative!important}
 .ui-iggrid-featurechooser-li-container{float:left;text-align:center;padding:0 5px;cursor:pointer}
 .ui-iggrid-featurechooser-secondaryicon-container{margin-top:-9px;position:absolute;right:3px;top:50%}
@@ -411,7 +410,7 @@ body[dir="rtl"] .ui-iggrid-filtericoncontainer,body[dir="rtl"] .ui-iggrid-featur
 .ui-tooltip{background-image:none;border-width:2px}
 .ui-iggrid-columnmoving-dragtop{background:url(images/igGrid/filter-icons-333333.png) no-repeat -80px 4px}
 .ui-iggrid-columnmoving-dragbottom{background:url(images/igGrid/filter-icons-333333.png) no-repeat -96px -4px}
-.ui-iggrid-moving-indicator{cursor:pointer;display:block;float:right;font-family:"Segoe UI",Arial,sans-serif;font-size:10px;height:16px;line-height:20px;text-align:center;width:16px;background:url(images/igGrid/filter-icons-FFFFFF.png) no-repeat -574px -2px}
+.ui-iggrid-moving-indicator{cursor:pointer;display:block;float:right;font-family:"Segoe UI",Arial,sans-serif;font-size:10px;height:16px;line-height:20px;text-align:center;width:16px;background:url(images/igGrid/filter-icons-FFFFFF.png) no-repeat -576px 0!important}
 .ui-iggrid th .ui-iggrid-summaries-header-icon.ui-icon{display:inline-block;float:right;background:transparent url(images/igGrid/filter-icons-FFFFFF.png) no-repeat -416px 0}
 .ui-iggrid-summaries-headerbuttoncontainer{float:right;border:1px solid transparent;width:16px;height:16px}
 .ui-iggrid tfoot td.ui-state-default .ui-icon.ui-iggrid-icon-summaries{background:transparent url(images/igGrid/filter-icons-333333.png) no-repeat -416px 0}
@@ -880,7 +879,7 @@ td.ui-iggrid-addrow{text-align:left;position:relative;cursor:default;font-weight
 .ui-igpivot-filterdropdown .ui-igbutton{cursor:pointer;margin:1px}
 .ui-igpivot-filterdropdown .ui-igtree-expander{top:.6em}
 .ui-igpivot-filterdropdown .ui-igtree-node{line-height:1em}
-.ui-igpivot-filterdropdown span[data-role=checkbox]{min-height:14px;min-width:14px;width:1em;height:1em}
+.ui-igpivot-filterdropdown span[data-role=checkbox]{width:1em;height:1em}
 .ui-igpivot-filterdropdown .ui-igtree-node a{font-size:1em}
 .ui-igpivot-filterdropdown-buttoncontainer{float:right;padding:6px}
 .ui-igpivot-droparea{margin:0;padding:0}
@@ -894,7 +893,6 @@ td.ui-iggrid-addrow{text-align:left;position:relative;cursor:default;font-weight
 .ui-igpivotdataselector{background:#F3F3F3;font-size:.9em;overflow-x:hidden;overflow-y:auto}
 .ui-igpivotdataselector .ui-igpivotdataselector-root{padding:10px}
 .ui-igpivotdataselector-metadata{height:300px}
-.ui-igpivotdataselector-metadata .ui-igtree-root{margin-top:.5em}
 .ui-igpivotdataselector-metadata .ui-igpivot-metadataitem .cube,.ui-igpivotdataselector-metadata .ui-igpivot-metadataitem .dimension,.ui-igpivotdataselector-metadata .ui-igpivot-metadataitem .folder,.ui-igpivotdataselector-metadata .ui-igpivot-metadataitem .hierarchykey,.ui-igpivotdataselector-metadata .ui-igpivot-metadataitem .hierarchydirect,.ui-igpivotdataselector-metadata .ui-igpivot-metadataitem .hierarchymultiple,.ui-igpivotdataselector-metadata .ui-igpivot-metadataitem .hierarchysingle,.ui-igpivotdataselector-metadata .ui-igpivot-metadataitem .kpi,.ui-igpivotdataselector-metadata .ui-igpivot-metadataitem .level1,.ui-igpivotdataselector-metadata .ui-igpivot-metadataitem .level2,.ui-igpivotdataselector-metadata .ui-igpivot-metadataitem .level3,.ui-igpivotdataselector-metadata .ui-igpivot-metadataitem .level4,.ui-igpivotdataselector-metadata .ui-igpivot-metadataitem .level5,.ui-igpivotdataselector-metadata .ui-igpivot-metadataitem .measure,.ui-igpivotdataselector-metadata .ui-igpivot-metadataitem .member,.ui-igpivotdataselector-metadata .ui-igpivot-metadataitem .members{width:16px;height:16px;display:inline-block;vertical-align:baseline;margin-right:.2em;background-image:url(images/igPivot/dataselector-sprite.png)}
 .ui-igpivotdataselector-metadata .ui-igpivot-metadataitem .cube{background-position:0 0}
 .ui-igpivotdataselector-metadata .ui-igpivot-metadataitem .dimension{background-position:-16px 0}
@@ -929,7 +927,6 @@ td.ui-iggrid-addrow{text-align:left;position:relative;cursor:default;font-weight
 .ui-igbutton.ui-igpivotdataselector-updatelayout{height:18px;width:18px;margin-left:10px;vertical-align:middle}
 .ui-igbutton.ui-igpivotdataselector-updatelayout .ui-icon{margin-left:0}
 .ui-igpivotgrid-blockarea{background:rgba(0,0,0,0.70) url("images/ui-anim_basic_16x16.gif") no-repeat center center;position:absolute;width:100%;height:100%;top:0;z-index:10}
-.ui-igpivotgrid-tree-blockarea{background:url("images/ui-anim_basic_16x16.gif") no-repeat center center;position:absolute;width:16px;height:16px;z-index:20000}
 .ui-igpivotgrid-header{background-size:contain;white-space:nowrap}
 .ui-igpivotgrid.ui-iggrid-table .ui-igpivotgrid-header{overflow:hidden;text-overflow:ellipsis}
 .ui-igpivotgrid-header .ui-icon{display:inline-block}
@@ -1126,4 +1123,3 @@ td.ui-iggrid-addrow{text-align:left;position:relative;cursor:default;font-weight
 .ui-igzoombar-scrollbar-thumb:after{content:"\0131\0131\0131";font-size:11px;cursor:default}
 .ui-igzoombar-scrollbar-thumb,.ui-igzoombar-window-handle{background-color:#F9F9F9;background-image:none;background-repeat:no-repeat;border:1px solid #B9B9B9;color:#4B4B4B;font-weight:normal}
 .ui-igzoombar-scrollbar-thumb.ui-state-hover,.ui-igzoombar-window-handle.ui-state-hover{background-color:#E8E8E8}
-.ui-igtrialwatermark{width:160px;height:20px;background-image:url(images/trial.png);opacity:.25;filter:alpha(opacity=25);-ms-filter:"alpha(opacity=25)";-khtml-opacity:.25;-moz-opacity:.25}

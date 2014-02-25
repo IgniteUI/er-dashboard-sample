@@ -1,0 +1,9 @@
+# user files
+*.suo
+
+# folders
+ER-Dashboard/packages
+ER-Dashboard/HealthcareDashboard/bin
+ER-Dashboard/HealthcareDashboard/obj
+ER-Dashboard/.nuget
+*.user

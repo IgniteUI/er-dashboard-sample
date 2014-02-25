@@ -11,6 +11,15 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthcareDashboard", "HealthcareDashboard\HealthcareDashboard.csproj", "{CB31EA12-7812-4E82-90A6-8385DF31318A}"
 EndProject
 Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://tfs.infragistics.local:8080/tfs/engineering
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = HealthcareDashboard\\HealthcareDashboard.csproj
+		SccProjectName1 = HealthcareDashboard
+		SccLocalPath1 = HealthcareDashboard
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

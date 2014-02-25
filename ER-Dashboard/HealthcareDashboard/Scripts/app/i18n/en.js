@@ -12,7 +12,10 @@
         "InfoDescription": "	<p>This sample shows a dashboard for emergency room monitoring that uses the IgniteUI data chart, grid and hierarchical grid, templating, tile manager and combo control. IgniteUI grids and charts work and perform well together to provide a comprehensive, data-intensive dashboard that runs well on mobile as well as desktop devices.</p>",
         "ShowCaseUrl": "http://igniteui.com/er-dashboard-sample",
         "sourceDownload": "Download Source Code",
-        "qrInfo": "Scan to view on your mobile device!"
+        "sourceDownloadUrl": "http://www.infragistics.com/downloads/generate/00000000-0000-0000-0000-000000003663?thankYouEmailContentId=11129",
+        "qrInfo": "Scan to view on your mobile device!",
+        "igniteuiURL": "http://igniteui.com/",
+        "igURL": "http://infragistics.com/"
     },
     "Patients": {
         "PatientsAdmissions": "Patients",

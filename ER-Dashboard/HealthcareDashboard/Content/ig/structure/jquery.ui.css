@@ -335,4 +335,3 @@ button.ui-button::-moz-focus-inner{border:0;padding:0}
 .ui-datepicker-cover{display:none;display:block;position:absolute;z-index:-1;filter:mask();top:-4px;left:-4px;width:200px;height:200px}
 .ui-progressbar{height:2em;text-align:left}
 .ui-progressbar .ui-progressbar-value{margin:-1px;height:100%}
-.ui-igtrialwatermark{width:160px;height:20px;background-image:url(images/trial.png);opacity:.25;filter:alpha(opacity=25);-ms-filter:"alpha(opacity=25)";-khtml-opacity:.25;-moz-opacity:.25}

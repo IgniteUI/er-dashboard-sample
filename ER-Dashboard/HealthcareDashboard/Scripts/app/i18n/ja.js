@@ -11,8 +11,11 @@
         "controlsUsed": "Infragistics コントロール:",
         "InfoDescription": "	<p>このサンプルでは、ER の状況の概要を表示します。Ignite UI のデータ チャート、グリッド、階層グリッド、テンプレート化、およびコンボ コントロールを使用します。Ignite UI グリッドおよびチャートはモバイルおよびデスクトップ デバイスでデータの大量を表示できます。</p>",
         "ShowCaseUrl": "http://jp.igniteui.com/er-dashboard-sample",
-        "sourceDownload": "Download Source Code",
-        "qrInfo": "Scan to view on your mobile device!"
+        "sourceDownloadUrl": "http://jp.infragistics.com/downloads/DownloadLinkGenerator.aspx?DownloadId=8186279D-DB21-E211-9359-0050568A73AE",
+        "sourceDownload": "ソース コードのダウンロード",
+        "qrInfo": "スキャンしてモバイル デバイスで表示",
+        "igniteuiURL": "http://jp.igniteui.com/",
+        "igURL": "http://jp.infragistics.com/"
     },
     "Patients": {
         "PatientsAdmissions": "患者",

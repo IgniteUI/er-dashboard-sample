@@ -725,25 +725,8 @@ button.ui-button.ui-state-hover.ui-state-active.ui-state-focus,a.ui-button.ui-st
 .ui-igsplitter-splitbar-horizontal.ui-state-hover,.ui-igsplitter-splitbar-vertical.ui-state-hover{background:none #36C0F3;border-color:transparent}
 .ui-igsplitter-splitbar-horizontal.ui-state-focus,.ui-igsplitter-splitbar-vertical.ui-state-focus{border-width:1px;border-color:transparent}
 .ui-igsplitter-collapse-button-vertical-left.ui-state-default,.ui-igsplitter-collapse-button-vertical-right.ui-state-default,.ui-igsplitter-collapse-button-horizontal-left.ui-state-default,.ui-igsplitter-collapse-button-horizontal-right.ui-state-default{background-color:#d2d2d2}
-.ui-sparkline{font-family:"Segoe UI",Arial,sans-serif;font-size:13px;padding:10px 5px 10px 5px;border:0}
-.ui-sparkline-tooltip{-moz-box-shadow:0 0 2px #555;-webkit-box-shadow:0 0 2px #555;box-shadow:0 0 2px #555;padding:3px}
-.ui-sparkline-sparkpath{background:#2bb9e5;border:1px solid}
-.ui-sparkline-negativesparkpath{background:#B9242E;border:1px solid}
-.ui-sparkline-trendline{background:#7F7F7F;border:2px solid}
-.ui-sparkline-markers{background:#43ABD5;border:3px solid}
-.ui-sparkline-firstmarker{background:#237FA7;border:5px solid}
-.ui-sparkline-lastmarker{background:#FBC139;border:5px solid}
-.ui-sparkline-highmarker{background:#A3B929;border:4px solid}
-.ui-sparkline-lowmarker{background:#AF39FF;border:3px solid}
-.ui-sparkline-negativemarkers{background:#E5516F;border:3px solid}
-.ui-sparkline-range{background:gray;opacity:.2}
-.ui-sparkline-axis-x{font-family:"Segoe UI",Arial,sans-serif;border:2px solid #989EA3;color:#406090}
-.ui-sparkline-axis-y{font-family:"Segoe UI",Arial,sans-serif;border:2px solid #989EA3;color:#406090;text-align:right}
-.ui-funnel{font-family:Segoe UI,Arial,Helvetica,sans-serif;font-size:14px;color:#555;border:0}
-.ui-funnel-tooltip{-moz-box-shadow:0 0 2px #555;-webkit-box-shadow:0 0 2px #555;box-shadow:0 0 2px #555;padding:3px}
-.ui-funnel-slice{color:#FFF;border:0}
-.ui-funnel-slice-selected{opacity:1.0}
-.ui-funnel-slice-unselected{opacity:.49;border-color:transparent}
+.ui-sparkline{border:0}
+.ui-funnel{border:0}
 .ui-doughnut{border:0}
 .ui-igpivot-metadataitem.ui-state-default{background:#00AADE;border:1px solid #00AADE;color:#FFF;text-shadow:none}
 .ui-igpivot-metadataitem.ui-state-hover{background:#0092BE;border:1px solid #00AADE;color:#FFF;text-shadow:none}
@@ -763,16 +746,21 @@ button.ui-button.ui-state-hover.ui-state-active.ui-state-focus,a.ui-button.ui-st
 .ui-radialgauge-range-palette-6{background-color:#037A54;border-top-color:transparent}
 .ui-radialgauge{font-family:'Arial','Segoe UI','Myriad Pro',sans-serif;font-size:16px}
 .ui-bulletgraph-backing{background-color:#fff;border-color:#fff}
-.ui-bulletgraph-targetValue{background-color:#fff;border-color:#fff}
+.ui-bulletgraph-targetValue{background-color:#494949;border-color:#494949}
 .ui-bulletgraph-tick{background-color:#494949;border:transparent}
 .ui-bulletgraph-minorTick{background-color:#a8a8a8;border:transparent}
 .ui-bulletgraph-label{background-color:#333;border:transparent}
-.ui-bulletgraph-range-palette-1{background-color:#0092be;border:transparent}
-.ui-bulletgraph-range-palette-2{background-color:#00aade;border:transparent}
-.ui-bulletgraph-range-palette-3{background-color:#2bb9e5;border:transparent}
-.ui-bulletgraph-range-palette-4{background-color:#55c8eb;border:transparent}
-.ui-bulletgraph-range-palette-5{background-color:#80d7f2;border:transparent}
-.ui-bulletgraph-value{background-color:#FFF;border:transparent}
+.ui-bulletgraph-range-palette-1{background-color:#00AADE;border:transparent}
+.ui-bulletgraph-range-palette-2{background-color:#19CCFF;border:transparent}
+.ui-bulletgraph-range-palette-3{background-color:#cecece;border:transparent}
+.ui-bulletgraph-range-palette-4{background-color:#efefef;border:transparent}
+.ui-bulletgraph-range-palette-5{background-color:#efefef;border:transparent}
+.ui-bulletgraph-range-palette-6{background-color:#efefef;border:transparent}
+.ui-bulletgraph-actualvalue-palette-1{background-color:#FFF;border:transparent}
+.ui-bulletgraph-actualvalue-palette-2{background-color:#ececec;border:transparent}
+.ui-bulletgraph-actualvalue-palette-3{background-color:#cecece;border:transparent}
+.ui-bulletgraph-actualvalue-palette-4{background-color:#888;border:transparent}
+.ui-bulletgraph-actualvalue-palette-5{background-color:#494949;border:transparent}
 .ui-bulletgraph{font-family:'Arial','Segoe UI','Myriad Pro',sans-serif;font-size:12px;color:#494949}
 .ui-lineargauge-backing{background-color:#fff;border-color:#fff}
 .ui-lineargauge-needle{background-color:#494949;border-color:#494949}
@@ -780,11 +768,9 @@ button.ui-button.ui-state-hover.ui-state-active.ui-state-focus,a.ui-button.ui-st
 .ui-lineargauge-tick{background-color:#494949;border:transparent}
 .ui-lineargauge-minorTick{background-color:#EBEBEB;border:transparent}
 .ui-lineargauge-label{background-color:#333;border:transparent}
-.ui-lineargauge-range-palette-1{background-color:#0092be;border:transparent}
-.ui-lineargauge-range-palette-2{background-color:#00aade;border:transparent}
-.ui-lineargauge-range-palette-3{background-color:#2bb9e5;border:transparent}
-.ui-lineargauge-range-palette-4{background-color:#55c8eb;border:transparent}
-.ui-lineargauge-range-palette-5{background-color:#80d7f2;border:transparent}
+.ui-lineargauge-range-palette-1{background-color:#216E99;border:transparent}
+.ui-lineargauge-range-palette-2{background-color:#44acd6;border:transparent}
+.ui-lineargauge-range-palette-3{background-color:#cecece;border:transparent}
 .ui-lineargauge-needle-palette-1{background-color:#e0e0e0;border:transparent}
 .ui-lineargauge-needle-palette-2{background-color:#c0c0c0;border:transparent}
 .ui-lineargauge-needle-palette-3{background-color:#999;border:transparent}
@@ -794,4 +780,3 @@ button.ui-button.ui-state-hover.ui-state-active.ui-state-focus,a.ui-button.ui-st
 .ui-lineargauge-range-tooltip{border-style:solid;border-width:2px;border-radius:4px;background-color:rgba(230,230,230,0.74);padding:4px;font-weight:bold}
 .ui-lineargauge-needle-tooltip{border-style:solid;border-width:2px;border-radius:4px;background-color:rgba(230,230,230,0.74);padding:4px;font-weight:bold}
 .ui-lineargauge{font-family:'Segoe UI','Arial','Myriad Pro',sans-serif;font-size:12px;color:#494949}
-.ui-igtrialwatermark{width:160px;height:20px;background-image:url(images/trial.png);opacity:.25;filter:alpha(opacity=25);-ms-filter:"alpha(opacity=25)";-khtml-opacity:.25;-moz-opacity:.25}
