@@ -1,0 +1,705 @@
+﻿/*
+    Styles for the main UI elements
+*/
+
+body {
+    background-color: #FFFFFF;
+    margin: 0;
+}
+
+a:focus {
+     outline: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+div.ui-igtilemanager-right {
+    overflow-y: scroll;
+}
+
+#layoutContainer {
+    border:none!important;
+}
+
+.ui-igtile-maximized {
+    padding: 0px!important;
+    border: none!important;
+}
+
+.ui-igtile-maximized .ui-igtile-inner-container.dashboardTile {
+    overflow:hidden;
+    border-top: none;
+    background-color: #f3f3f3;
+}
+
+.ui-igtile-maximized .dashboardTile {
+    padding: 55px 5px 8px 5px;
+    position: relative;
+}
+
+.ui-igtile-minimized .ui-igtile-inner-container {
+    background-color: #f3f3f3;
+    font-weight: bold;
+    padding: 0px;
+}
+
+.ui-igtile-minimized .patients {
+  /*  background-color: #caf3ff;
+    border: 1px solid #00aade;*/
+}
+
+.ui-igtile-minimized, .ui-igtile {
+    padding: 0px!important;
+    border: 0px!important;
+}
+
+/*
+    Main tile elements
+*/    
+
+
+/*#gridPatients {
+    margin-top: -55px;
+}*/
+
+.tileHeading {
+    border-top: 5px solid #494949;
+    border-bottom: 1px solid #d3d3d3;
+    background-color: #FFFFFF;
+    min-height: 55px;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+}
+
+/*sprites*/
+
+.subHeadingIcon {
+    position: relative;
+    float: left;
+    top: 15px;
+    left: 8px;
+    width: 23px;
+    height: 22px;
+    background-image: url('images/sprite-main.png');
+}
+
+.vitalSignsHeadingIcon {background-position: 0px -260px;}
+.ordersHeadingIcon {background-position: 0px -282px;}
+.testsHeadingIcon {background-position: 0px -238px;}
+.patientsHeadingIcon {background-position: 0px -305px;}
+
+.headingChartIcon {
+    background-image: url('images/sprite-main.png');
+    width: 28px;
+    height: 23px;
+    display: inline-block;
+    margin: 3px;
+}
+
+.columnChartIcon {background-position: 0px -168px;}
+.lineChartIcon {background-position: 0px -145px;}
+.splineChartIcon {background-position: 0px -99px;}
+.areaChartIcon {background-position: 0px -122px;}
+.splineAreaChartIcon {background-position: 0px -76px;}
+.rangeColumnChartIcon {background-position: 0px -53px;}
+.rangeAreaChartIcon {background-position: 0px -30px;}
+
+.gridSelectIcon {background-position: 0px -193px;}
+.chartSelectIcon {background-position: 0px -216px;}
+
+.severity_1,
+.severity_2,
+.severity_3 {
+    background-image: url('images/sprite-main.png');
+    background-repeat: repeat; 
+    height: 31px;
+    display: inline-block;
+}
+    .severity_1 {width: 32px;}
+    .severity_2 {width: 64px;}
+    .severity_3 {width: 96px;}
+
+    .ui-iggrid-selectedcell.ui-state-active .severity_1,
+    .ui-iggrid-selectedcell.ui-state-active .severity_2,
+    .ui-iggrid-selectedcell.ui-state-active .severity_3 {
+        background-position: 0px -351px;
+    }
+#appBar {
+    height: 70px;
+    position: relative; 
+    top: 0px;
+}
+
+.appBar span.logoIcon {
+    width: 32px;
+    height: 26px!important;
+    background-image: url('images/sprite-main.png');
+    background-position: 0px -325px;
+    background-repeat: no-repeat;
+    margin-left: 20px;
+    position: relative;
+    top: 50%;
+    margin-top: -13px;
+    padding:0;
+}
+
+
+
+#info {
+    background-image: url('images/sprite-main.png');
+    float: right;
+    width: 16px;
+    height: 16px;
+    background-position: -8px -385px;
+    margin: 25px 15px 0px 0px;
+}
+    #info:hover {
+        cursor: pointer;
+    }
+
+.tileContent {
+    height: 98.5%;
+    width: 100%;
+    margin-top: 10px;
+    border: 0;
+}
+
+.dashboardTile #gridPatients_container {
+    border: 1px solid #d3d3d3;
+}
+
+.noDataLabel {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.tileTitle {
+    margin: 10px 0 0 15px;
+    line-height:1.8em;
+    float: left;
+    
+}
+
+.tileUIElement {
+    display: inline-block;
+
+}
+
+.tileHeading a:hover {
+    background-color: #DDD;
+}
+
+/*
+    Main application bar elements
+*/
+
+.appBar span {
+    margin-left: -4px;
+    padding: 25px 10px 0px 10px;
+    height: 70px;
+    display: block;
+    float: left;
+    font-family: 'Helvetica', sans-serif;
+    font-size: 1em;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.appBarHeading {
+    font-family: 'Helvetica', sans-serif;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+#labelPatient {
+    font-style: italic;
+    background-color: #5e5e5e;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: 20px;
+    margin-right: 10px;
+    border-bottom: 3px solid #00aade;
+}
+
+.rightAligned {
+    position: relative;
+    float: right;
+    margin: 12px 5px 5px 5px;
+}
+
+.rightAlignedFix {
+    margin-right: 12px;
+}
+
+.blockMsg {
+    font-size: 1.1em;
+    font-style: italic;
+    font-weight:bolder; 
+    color: #ffffff;
+    background-color:#00aade;
+    border-radius: 5px;
+    padding:1em;
+    opacity:0.7;
+}
+
+.blockElement {
+    cursor: auto;
+}
+
+.blockOverlay {
+    cursor: auto;
+    background-color: #fff;
+	opacity: 0.6;
+}
+
+.header {
+    background-color: #454545;
+    color: #FFF;
+    height: 70px; 
+}
+
+.selectedResource {
+    color: #454545;
+    float: left;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 1.2em;
+    margin-left: 10px;
+    line-height: 1.5em; 
+}
+
+.selectedResource:before {
+    content: '– '
+}
+
+.minimizedContainer .innerContainer {
+    position: absolute;
+    width: 100%;
+    height: 100%
+}
+
+    .minimizedContainer .innerContainer img {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        max-width: 75%;
+        -webkit-transition:0.5s;
+        -moz-transition:0.5s;
+        transition: 0.5s;
+    }
+
+    .minimizedContainer .innerContainer span {
+        padding: 5px 1px;
+        font-size: 1.3em;
+        position: relative;
+        top: 7%;
+        left: 5%; 
+        text-shadow: 1px 1px 0px #F3F3F3;
+        z-index: 20;
+    }
+
+.loadPatientButtonContainer {
+    padding: 5px 0 15px 0;
+    text-align: center;
+    height: 9%;
+}
+
+.loadPatientButton {
+    position: relative;
+    width: 280px;
+    background-color: #00aade;
+    color: #FFF;
+    padding: 10px;
+    border: 2px solid #009ccc;
+    border-bottom-width: 5px;
+    border-radius: 10px;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    top: 50%;
+    margin-top: -20px;
+}
+
+.imageViewer {
+    height: 100%;
+    width: 80%;
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    margin-left: -40%;
+}
+
+
+.loadPatientButton:hover {
+    cursor: pointer;
+    margin-top: -19px;
+    border-bottom-width:4px;
+}
+
+.loadPatientButton:active {
+    cursor: pointer;
+    margin-top: -17px;
+    border-bottom-width:2px;
+}
+
+
+.ui-igcombo-list .ui-igcombo-listitemholder .ui-igcombo-listitem {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+/*dialog*/
+
+.ui-igdialog-content {
+    height: auto!important;
+}
+
+div.ui-dialog {
+    border: 0;
+    color: #333;
+    box-shadow: 0px 0px 50px rgba(0,0,0,0.4);
+    padding: 20px 0 0 0;
+    width: 700px!important;
+}
+    div.ui-dialog div.ui-dialog-titlebar {
+        background-color: transparent;
+        border: none;
+    }
+
+    .ui-dialog .ui-dialog-title {
+        color: #4B4B4B!important;
+    }
+
+    div.ui-dialog p {
+        color: #4B4B4B;
+        font-size: 14px;
+        margin-left: 15px;
+    }
+
+    div.ui-dialog h4 {
+        margin-left: 15px;
+        color: #4B4B4B;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        font-size: 19px;
+        font-weight: bold;
+    }
+
+    div.ui-igdialog-overlay {
+        background: #fff;
+    }
+
+.ui-igdialog-content {
+    padding: 0!important;
+}
+
+.ui-digdialog {
+    padding: 0!important;
+}
+
+.dialog-dl-qr-wrap {
+    font-size: 0.813em;
+    font-weight: 600;
+    color: #333333;
+    text-shadow: 1px 1px 0 #FFFFFF;
+    height: 60px;
+    line-height: 60px;
+    padding: 0 15px;
+    margin: 20px 0px;
+}
+
+.dialog-download-icon {
+    background-image: url('images/sprite-main.png');
+    background-position: -11px -414px;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+#barcode {
+    float: right;
+    margin-left: 5px;
+}
+
+.dialog-download {
+    display: inline-block;
+    margin-top: 1px;
+}
+
+.dialog-qr {
+    float: right;
+    height: 60px;
+    line-height: 60px;
+}
+
+.dialog-sprite {
+    background-image:url('images/about-icons-large.png');
+    width: 42px;
+    height: 42px;
+    display: inline-block;
+    margin-left: 15px;
+    padding: 0px;
+}
+
+.ds-grid {
+    background-position: 0px 0px;
+}
+
+.ds-chart {
+    background-position: -42px 0px;
+}
+
+.ds-combo {
+    background-position: -84px 0px;
+}
+
+.ds-tile {
+    background-position: -126px 0px;
+}
+
+.control-title {
+    margin-left: 7px;
+    margin-right: 13px;
+    position: relative;
+    bottom: 11px;
+    color: #454545;
+    font-size: 1.1em;
+}
+
+
+.ignite-ui-about {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #FF7814;
+    max-width: 100%;
+}
+
+.infragistics-about {
+    background-color: #454545;
+    text-align: center;
+    height: 28px;
+    line-height: 28px;
+    width: 100%;
+    max-width: 100%;
+}
+
+@media (max-width : 710px) {
+
+    .loadPatientButtonContainer {
+        padding: 5px;
+    }
+
+    .ignite-ui-about {
+        height: 20px;
+        line-height: 20px;
+        bottom: 20px;
+    }
+
+    .infragistics-about {
+        height: 20px;
+        line-height: 20px;
+    }
+
+    div.ui-igdialog {
+        width: 310px!important;
+    }
+        div.ui-igdialog img {
+            max-width: 35%;
+        }
+        div.ui-dialog h4 {
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+
+    .dialog-sprite {
+        background-image:url('images/about-icons-small.png');
+        width: 21px;
+        height: 21px;
+        margin-left: 15px;
+    }
+
+    .ds-grid {
+        background-position: 0px 0px;
+    }
+
+    .ds-chart {
+        background-position: -21px 0px;
+    }
+
+    .ds-combo {
+        background-position: -42px 0px;
+    }
+
+    .ds-tile {
+        background-position: -63px 0px;
+    }
+
+    .control-title {
+        bottom: 5px;
+        margin-right: 42px;
+    }
+
+    .appBar span.logoIcon {
+       top: 20px;
+    }
+
+    .selectedResource, 
+    #labelDay, 
+    #labelDate,
+    #labelTime,
+    .tileTitle,
+    .subHeadingIcon,
+    #selectedVital,
+    .appBar .appName,
+    .dialog-dl-qr-wrap {
+         display: none;
+    }
+
+    .loadPatientButton {
+        padding: 6px 5px 6px 0px;
+    }
+
+    .header {
+        height: 40px;
+    }
+
+    #info {
+        margin-top: 15px;
+    }
+
+    body {
+        font-size: 0.75em;
+    }
+
+    .appBar span {
+        padding: 10px 10px 10px 10px; 
+        height: auto;
+        top: -4px;
+        position: relative;
+    }
+
+    .blockMsg {
+        font-size: 0.85em;
+    }
+
+    .ui-igtile-maximized .dashboardTile {
+        padding: 35px 5px 15px 5px;
+    }
+
+    .subHeadingIcon {
+        top: 11px;
+    }
+    #appBar .appBarHeading {
+        padding-top: 16px;
+    }
+
+
+
+}
+@media (max-width : 750px) {
+    
+    .tileInfo {
+     display: none;
+    }
+
+    .rightAligned {
+        margin: 5px;
+    }
+
+    .ui-igcombo {
+        margin-top: 5px;
+    }
+    .headingChartIcon {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+@media (max-width : 750px) and (max-height : 500px) {
+    .tileInfo,
+    .subHeadingIcon,
+    .tileTitle {
+        display: block!important;
+    }
+
+}
+
+@media (max-width : 890px) {
+
+    .medicalTileInfo {
+         display: none;
+    }
+
+    .patienceHeading {
+        display: none;
+    }
+
+    .ui-igtile-maximized .ui-igtile-inner-container.dashboardTile.patients {
+        padding-top: 0px;
+        border-top: 1px solid #d3d3d3;
+    }
+
+}
+@media (max-width : 960px) {
+    .minimizedContainer .innerContainer {
+        font-size: 0.80em;
+    }
+}
+
+@media (max-width : 1880px) {
+    #layoutContainer {
+        min-width: 300px;
+    }
+ 
+}
+@media (max-height : 230px) {
+    .patienceHeading {
+        display: none;
+    }
+}
+@media (max-height : 300px) {
+    .ordersHeading, 
+     .header {
+        display: none;
+    }
+
+    .ui-igtile-maximized .ui-igtile-inner-container.dashboardTile {
+        padding: 0px 5px 5px 5px;
+        border-top: 1px solid #d3d3d3;
+    }
+
+    .loadPatientButton {
+        padding: 6px 5px 6px 0px;
+    }
+
+    .tileContent {
+        margin-top: 0;
+    }
+    .tileHeading {
+        position: relative;
+    }
+    body {
+        font-size: 0.75em;
+    }
+}
+@media (max-height : 330px) {
+    .patienceHeading {
+        display: none;
+    }
+ .tileContent {
+        margin-top: 0;
+        
+    }
+    .ui-igtile-maximized .ui-igtile-inner-container.dashboardTile {
+        padding: 0px 5px 5px 5px;
+    }
+}

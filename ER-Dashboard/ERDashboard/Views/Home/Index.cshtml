@@ -1,0 +1,358 @@
+﻿@{
+    ViewBag.Title = "ER Dashboard";
+}
+
+@section Head {
+   @* <link id="layoutLink" href="@Url.Content("~/Content/Layout3.css")" type="text/css" rel="stylesheet" />*@
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="@Url.Content("~/Scripts/app/StateEngine.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/app/ControlManager.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/app/Localizer.js")" type="text/javascript"></script>
+    
+    <!-- Load the language JS file calculated by the controller action method -->
+    <script src="@ViewBag.ResourceFile" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        var selectedAdmittance,   //  Global variable to hold the selected patient/admittance ID
+            patients,
+            vitals,
+            medTests,
+            orders,
+            isLandscape = true,
+            mainTileManagerSelector = "#layoutContainer",
+            informationDialogSelector = "#infoDialog",
+            gridPatienceSelector = "#gridPatients",
+            imageViewerSelector = "#imageTestsResults",
+            igniteuiAnchorTag = "#igniteuiAnchorTag",
+            igAnchorTag = "#igAnchorTag",
+            currentLanguage = "@ViewBag.Language",
+            //  Localization variables
+            //  resources is defined in the specific locale's JS file (for example, ja.js for Japanese ja locale)
+            loc = new Localizer(resources),
+            locIndex = loc.get("Index");    //  Cache the Index view localization items for performance and clarity
+
+            $(function () {
+                //Localize all the resource strings on the index page
+                loc.localizeView("Index");
+                //Simulate Clock on the main view
+                //        
+                self.setInterval('setTimeLabel()', 1000);
+                $.ig.regional.defaults = $.extend($.ig.regional.defaults, $.ig.regional[currentLanguage]);
+                //  Enable styling of BlockUI elements by CSS
+                $.blockUI.defaults.css = {};
+                $.blockUI.defaults.overlayCSS = {};
+                createTiles();
+                initTileManager();
+                //initialize dialog
+                $(igAnchorTag).attr("href", locIndex["igURL"]);
+                $(igniteuiAnchorTag).attr("href", locIndex["igniteuiURL"]);
+                $("#sourceDownloadAnchor").attr("href", locIndex["sourceDownloadUrl"])
+                $(informationDialogSelector).prepend(locIndex["InfoDescription"]);
+
+                $(informationDialogSelector).igDialog({
+                    state: "closed",
+                    modal: true,
+                    draggable: false,
+                    resizable: false,
+                    headerText: locIndex["InfoHeader"],
+                    height: "350px"
+                });
+
+                $("#info").on("click", function () {
+                    //Open igDialig
+                    $(informationDialogSelector).igDialog("open");
+                });
+
+                $("#barcode").igQRCodeBarcode({
+                    height: "66px",
+                    width: "66px",
+                    errorCorrectionLevel: "low",
+                    barsFillMode: "ensureEqualSize",
+                    stretch: "none",
+                    data: locIndex["ShowCaseUrl"]
+                });
+
+            });
+
+            function createTiles() {
+                patients = new PatientsUI();
+                loc.localizeView("Patients");
+                patients.admittanceSelected = admittanceSelected;
+                $("#tilePatients").unblock();
+
+                vitals = new VitalsUI(loc);
+                loc.localizeView("Vitals");
+                $("#tileVitals").unblock();
+
+                medTests = new MedTestsUI(loc);
+                loc.localizeView("MedTests");
+                $("#tileTests").unblock();
+
+                orders = new OrdersUI(loc);
+                loc.localizeView("Orders");
+            }
+
+            function initTileManager() {
+                var $tileManager = $(mainTileManagerSelector);
+                //Calculate outer height of the container holding the main igTileManager Component
+                $tileManager.outerHeight($(window).height() - $tileManager.offset().top);
+
+                $tileManager.width("100%").igTileManager({
+                    marginLeft: 10,
+                    marginTop: 10,
+                    items: [{ colSpan: 2, rowSpan: 2, colIndex: 0, rowIndex: 0 },
+                        { colSpan: 2, rowSpan: 2, colIndex: 0, rowIndex: 2 },
+                        { colSpan: 2, rowSpan: 2, colIndex: 0, rowIndex: 4 },
+                        { colSpan: 8, rowSpan: 6, colIndex: 2, rowIndex: 0 }],
+                    animationDuration: 150,
+                    maximizedTileIndex: 3,
+                    minimizedState: ".minimizedContainer",
+                    maximizedState: ".tileHeading, .tileContent",
+                    tileMaximizing: function (evt, ui) {
+
+                        if (ui.tile && ui.minimizingTile && ui.tile.data("index") === ui.minimizingTile.data('index')) {
+                            return false;
+                        }
+
+                        if (ui.minimizingTile.data("index") === 3) {
+                            var selectedRow = $(gridPatienceSelector).igGridSelection("selectedRow");
+                            if (selectedRow == null) {
+                                return false;
+                            }
+                        }
+
+                        //Patience Tile
+                        if (ui.tile.data("index") === 3) {
+                            patients.layoutChangedIndex(ui.minimizingTile.data("index"));
+                        }
+                    },
+                    tileMinimizing: function (evt, ui) {
+                        if (ui.tile.data("index") === 1) {
+                            if (medTests.viewMode.viewMode == "chart") {
+                                medTests.viewMode.modeHandlers.chart.exportImageAndHide();
+                            }
+                        }
+                        if (ui.tile.data("index") === 0) {
+                            if (vitals.viewMode.viewMode == "chart") {
+                                vitals.viewMode.modeHandlers.chart.exportImageAndHide();
+                            }
+                        }
+                    },
+                    tileMaximized: function (evt, ui) {
+                        var $imageViewer = $(imageViewerSelector);
+
+                        //Medical Tests
+                        if (ui.tile.data("index") === 1) {
+                            if (medTests.viewMode.viewMode == "image") {
+                                if ($imageViewer.is(":data('igTileManager')")) {
+                                    var interval = setInterval(function () {
+                                        if ($(':animated').length === 0) {
+                                            $imageViewer.igTileManager("minimize")
+                                                .igTileManager("reflow", true);
+                                            clearInterval(interval);
+                                        }
+                                    }, 350);
+                                }
+                            }
+
+                            if (medTests.viewMode.viewMode == "chart") {
+                                medTests.viewMode.modeHandlers.chart.showChartAndRemoveImage();
+                            }
+                        }
+
+                        if (ui.tile.data("index") === 0) {
+                            if (vitals.viewMode.viewMode == "chart") {
+                                vitals.viewMode.modeHandlers.chart.showChartAndRemoveImage();
+                            }
+                        }
+                    },
+                    rendered: function () {
+                        //We call this function manually when the tile manager gets rendered
+                        setTimeout(function () {
+                            medTests.viewMode.modeHandlers.image.hide();
+                        }, 100);
+
+                        setTimeout(function () {
+                            orientationChanged();
+                        }, 300);
+                    }
+                });
+            }
+
+            function admittanceSelected(selectedAdmittance) {
+                $("#labelPatient").html(" " + selectedAdmittance.Name);
+                setDayLabel();
+                setTimeLabel();
+                vitals.showVitals(selectedAdmittance);
+                medTests.showTests(selectedAdmittance);
+                orders.showOrders(selectedAdmittance);
+            }
+
+            function setDayLabel() {
+                var d = new Date();
+
+                $("#labelDay").html($.ig.formatter(d, "date", $.ig.regional.defaults.dateLongPattern));
+            }
+
+            function setTimeLabel() {
+                var hours, minutes, seconds,
+                    today = new Date();
+
+                hours = today.getHours() <= 9 ? "0" + today.getHours().toString() : today.getHours();
+                minutes = today.getMinutes() <= 9 ? "0" + today.getMinutes().toString() : today.getMinutes();
+                seconds = today.getSeconds() <= 9 ? "0" + today.getSeconds().toString() : today.getSeconds();
+                var d = hours + ":" + minutes + ":" + seconds;
+                $("#labelTime").html(d);
+            }
+
+            function reflowImageViewerAfterAnimationDone() {
+                var $imageViewer = $(imageViewerSelector);
+
+                if ($imageViewer.is(":data('igTileManager')")) {
+                    var interval = setInterval(function () {
+
+                        //Waiting for animation to finish and then reflow the ImageViewer
+                        if ($(':animated').length === 0) {
+                            clearInterval(interval);
+                            var flag = $imageViewer.igTileManager("maximizedTile");
+
+                            if (flag) {
+                                $imageViewer.igTileManager('minimize');
+                                //Waiting for minimize to finish
+                                interval = setInterval(function () {
+                                    if ($(':animated').length === 0) {
+                                        $imageViewer.igTileManager("reflow", true);
+                                        clearInterval(interval);
+                                    }
+                                }, 150);
+                            } else {
+                                $imageViewer.igTileManager('reflow', true);
+                            }
+                        }
+                    }, 150);
+                }
+            }
+
+            function orientationChanged() {
+                var $window = $(window),
+                    $tileManager = $(mainTileManagerSelector),
+                    portraitConfiguration = [{ colSpan: 4, rowSpan: 1, colIndex: 0, rowIndex: 0 },
+					    { colSpan: 10, rowSpan: 5, colIndex: 0, rowIndex: 1 },
+					    { colSpan: 3, rowSpan: 1, colIndex: 4, rowIndex: 0 },
+					    { colSpan: 3, rowSpan: 1, colIndex: 7, rowIndex: 0 }],
+                    landscapeConfiguration = [{ colSpan: 2, rowSpan: 2, colIndex: 0, rowIndex: 0 },
+					    { colSpan: 2, rowSpan: 2, colIndex: 0, rowIndex: 2 },
+					    { colSpan: 2, rowSpan: 2, colIndex: 0, rowIndex: 4 },
+					    { colSpan: 8, rowSpan: 6, colIndex: 2, rowIndex: 0 }];
+
+                if ($window.height() > $window.width()) {
+                    // Portrait
+                    if (isLandscape === true) {
+
+                        $tileManager.igTileManager('option', 'items', portraitConfiguration);
+
+                        setTimeout(function () {
+                            $tileManager.igTileManager('reflow', true, null);
+                            //Once Reflow of the main Tile Manager Starts it's best to wait for the animation to
+                            reflowImageViewerAfterAnimationDone();
+                        }, 500);
+
+                        isLandscape = false;
+                    }
+                } else {
+                    //Landscape
+                    if (isLandscape === false) {
+
+                        $tileManager.igTileManager('option', 'items', landscapeConfiguration);
+
+                        setTimeout(function () {
+                            $tileManager.igTileManager('reflow', true, null);
+                            reflowImageViewerAfterAnimationDone();
+                        }, 500);
+
+                        isLandscape = true;
+                    }
+                }
+
+                setTimeout(function () {
+                    $.each($('.nonPatients').children('.blockMsg'), function (index, item) {
+                        $(item).css({
+                            marginTop: (-$(item).height() / 2),
+                            marginLeft: (-$(item).width() / 1.60),
+                            left: "50%",
+                            top: "50%"
+                        });
+                    });
+                }, 1000);
+            }
+
+            //This function is for internal usage
+            function setVersionInformation() {
+                var assemblyVersion = '@(ViewBag.DllVersion)';
+            var igScriptsVersion = $.ui.igGrid.version;
+            var res = $("<span id='assemblyVersion'>" + assemblyVersion + "</span><br/><span id='igScriptsVersion'>" + igScriptsVersion + "</span>");
+            $("#versionInfo").html(res);
+        }
+
+        $(document).ready(function () {
+            window.onresize = function () {
+                var $tileManager = $(mainTileManagerSelector),
+                    newHeight = $(window).height() - $tileManager.offset().top;
+
+                $tileManager.outerHeight(newHeight)
+                    .igTileManager('reflow', true, null);
+                reflowImageViewerAfterAnimationDone();
+                orientationChanged();
+            }
+
+            setVersionInformation();
+        });
+    </script>
+}
+
+@section Body {
+    <div class="container">
+        <div class="row header">
+            <div id="appBar" class="appBar span12">
+                <span class="logoIcon">&nbsp;</span>
+                    <span class="appBarItemPosition appBarHeading appName" data-localize="appTitle">ER Dashboard</span>
+                    <span id="labelPatient" class="appBarItemPosition appBarHeading"></span>
+                    <span id="labelDate" class="appBarItemPosition appBarText"></span>
+                    <span id="labelDay" class="appBarItemPosition appBarText"></span>
+                    <span id="labelTime" class="appBarItemPosition appBarText"></span>
+                    <span id="info" class="appBarItemPosition appBarText"></span>
+            </div>
+        </div>
+        <div id="layoutContainer" style="width:100%; height:600px; display:block">
+
+            <div class="dashboardTile vitals nonPatients">
+                @{Html.RenderPartial("Vitals");}
+            </div>
+            <div class="dashboardTile tests nonPatients">
+                @{Html.RenderPartial("MedTests");}
+            </div>
+            <div class="dashboardTile orders nonPatients" >
+                @{Html.RenderPartial("Orders");}
+            </div>
+            <div class="dashboardTile patients">
+                @{Html.RenderPartial("Patients");}
+
+            </div>
+        </div>      
+    </div>
+        <div id="versionInfo" style="display:none"></div>
+        <div id="infoDialog" data-localize="appInfo">
+        <h4 id="controlsUsed" data-localize="controlsUsed">Controls Used:</h4>
+        <span class="dialog-sprite ds-grid"></span><span class="control-title">Grid</span>
+        <span class="dialog-sprite ds-chart"></span><span class="control-title">Data Chart</span>
+        <span class="dialog-sprite ds-combo"></span><span class="control-title">Combo</span>
+        <span class="dialog-sprite ds-tile"></span><span class="control-title">Tile Manager</span>
+        <div class="dialog-dl-qr-wrap">
+            <a id="sourceDownloadAnchor" href="#" target="_blank" class="dialog-download" data-localize="sourceDownload">Download Source Code</a>
+            <span class="dialog-download-icon">&nbsp;</span>
+            <span id="barcode"></span><span class="dialog-qr" data-localize="qrInfo">Scan to view on your mobile device!</span>
+        </div>
+        <div class="ignite-ui-about"><a id="igniteuiAnchorTag" href="#" target="_blank" style="border: none"><img style="border:none" src="@Url.Content("~/Content/images/igniteui.png")" /></a></div>
+        <a id="igAnchorTag" href="#" target="_blank" ><div class="infragistics-about"><img style="border: none" src="@Url.Content("~/Content/images/infragistics.png")" /></div></a>
+	</div>
+}

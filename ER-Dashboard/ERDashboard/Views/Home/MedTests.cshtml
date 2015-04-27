@@ -1,0 +1,654 @@
+﻿<script type="text/javascript">
+    function MedTestsUI(localizer) {
+        var thisTile = this,
+            tileElement = "#tileTests",
+            chartSelector = "#chartMTests",
+            gridMTestsContainer = "#gridMTestsContainer",
+            gridMTests = "#gridMTests",
+            imageViewSelector = "#imageTestsResults",
+            locMedTests = localizer.get("MedTests");
+
+        this.dataSource = null;
+        var testsTextualMarker = {
+            measure: function (measureInfo) {
+                var cont = measureInfo.context;
+                var data = measureInfo.data;
+                var name = "null";
+                if (data.item() != null) {
+                    name = data.item().Result.toString();
+                }
+                var height = cont.measureText("M").width;
+                var width = cont.measureText(name).width;
+                measureInfo.width = width;
+                measureInfo.height = height;
+            },
+            render: function (renderInfo) {
+                var ctx = renderInfo.context,
+                    radius;
+                if (renderInfo.isHitTestRender) {
+                    ctx.fillStyle = renderInfo.data.actualItemBrush().fill();
+                } else {
+                    ctx.fillStyle = "black";
+                }
+
+                var data = renderInfo.data;
+                var name = data.item().Result.toString();
+                var halfWidth = renderInfo.availableWidth / 2.0;
+                var halfHeight = renderInfo.availableHeight / 2.0;
+                var x = renderInfo.xPosition - halfWidth;
+                if (x < 60) {
+                    x = 60;
+                }
+                if (data.item().Timestamp.getUTCHours() == 19 && data.item().Timestamp.getUTCMinutes() == 30) {
+                    x -= halfWidth;
+                }
+                var y = renderInfo.yPosition - ((halfHeight * 2.0) + 5.0);
+                if (y < 0) {
+                    y += (halfHeight * 4.0);
+                }
+
+                if (renderInfo.isHitTestRender) {
+                    ctx.fillRect(x, y, renderInfo.availableWidth, renderInfo.availableHeight);
+                } else {
+                    ctx.textBaseline = "top";
+                    ctx.fillText(name, x, y);
+                }
+            }
+        };
+        var barTestsTextualMarker = {
+            measure: function (measureInfo) {
+                var cont = measureInfo.context;
+                var data = measureInfo.data;
+                var name = "null";
+                if (data.item() != null) {
+                    name = data.item().Result.toString();
+                }
+                var height = cont.measureText("M").width;
+                var width = cont.measureText(name).width;
+                measureInfo.width = width;
+                measureInfo.height = height;
+            },
+            render: function (renderInfo) {
+                var ctx = renderInfo.context,
+                    radius;
+                if (renderInfo.isHitTestRender) {
+                    ctx.fillStyle = renderInfo.data.actualItemBrush().fill();
+                } else {
+                    ctx.fillStyle = "black";
+                }
+
+                var data = renderInfo.data;
+                var name = data.item().Result.toString();
+                var halfWidth = renderInfo.availableWidth / 2.0;
+                var halfHeight = renderInfo.availableHeight / 2.0;
+                var x = renderInfo.xPosition - halfWidth;
+
+                var y = renderInfo.yPosition - ((halfHeight * 2.0) + 5.0);
+                if (y < 0) {
+                    y += (halfHeight * 4.0);
+                }
+
+                if (renderInfo.isHitTestRender) {
+                    ctx.fillRect(x, y, renderInfo.availableWidth, renderInfo.availableHeight);
+                } else {
+                    ctx.textBaseline = "top";
+                    ctx.fillText(name, x, y);
+                }
+            }
+        };
+        //  ------------------------------ Initialize chart manager
+        var chartManager = new ControlManager({
+            selector: chartSelector,
+            create: function (data) {
+                var values = findMinMaxValueMedical(data.dataView());
+                $(chartSelector).igDataChart({
+                    width: "100%",
+                    height: "100%",
+                    dataSource: data.dataView(),
+                    axes: [
+                        {
+                            name: "xAxis",
+                            type: "categoryX",
+                            label: "Timestamp",
+                            interval: 1,
+                            labelAngle: 75,
+                            labelExtent: 65,
+                            title: $.ig.formatter(getYesterday(), "date", $.ig.regional.defaults.datePattern),
+                            formatLabel: function (item) {
+                                //We are calling formatted with enableUTCDates option
+                                return $.ig.formatter(item.Timestamp, "date", "HH:mm", false, true);
+                            }
+                        }, {
+                            name: "yAxis",
+                            type: "numericY",
+                            labelExtent: 35,
+                            titleAngle: 270,
+                            maximumValue: values.max + 2,
+                            minimumValue: values.min - 2
+                        }
+                    ],
+                    series: [ createCategorySeries("column") ],
+                    horizontalZoomable: false,
+                    verticalZoomable: false,
+                    windowResponse: "immediate"
+                });
+                
+            },
+            updateData: function (data) {
+                $(chartSelector).igDataChart("option", "dataSource", data.dataView());
+                var values = findMinMaxValueMedical(data.dataView()), title;
+                if (data.dataView().length > 0) {
+                    title = setTestsYAxisTitle(data.dataView()[0]);
+                    //Here we need to update chart series due to source selected
+                    setTestChartSeriesByItem(data.dataView()[0]);
+                } else {
+                    title = "";
+                }
+                $(chartSelector).igDataChart("option", "axes",
+                    [{
+                        name: "yAxis",
+                        type: "numericY",
+                        title: title,
+                        labelExtent: 60,
+                        maximumValue: values.max + 2,
+                        minimumValue: values.min - 2
+                    }]);
+            }
+        });
+        function setTestChartSeriesByItem(item) {
+            switch (item.TestTypeID) {
+                case 6:
+                    //Hemoglobin
+                    thisTile.chartMode.toggleMode("area");
+                    break;
+                case 5:
+                    //RBC
+                case 4:
+                    //WBC
+                    thisTile.chartMode.toggleMode("column");
+                    break;
+                case 9:
+                    //MCHC
+                case 10:
+                    //RDW
+                case 7:
+                    //HeamtorCrit
+                case 8:
+                    //MCV
+                    thisTile.chartMode.toggleMode("line");
+                    break;
+                default:
+                    return "";
+            }
+        }
+        function setTestsYAxisTitle(item) {
+            switch (item.TestTypeID) {
+                case 6:
+                    return "g / 100ml";
+                    break;
+                case 7:
+                    return "gram / liter";
+                    break;
+                case 8:
+                    return "femtoliters / cell";
+                    break;
+                case 9:
+                    return "g / 100ml";
+                    break;
+                case 10:
+                    return "fL"
+                    break;
+                case 5:
+                    return "10^12 cells / Liter";
+                    break;
+                case 4:
+                    return "10^9 cells / Liter";
+                    break;
+                default:
+                    return "";
+            }
+        }
+        function getYesterday() {
+            //create the date
+            var myDate = new Date();
+
+            //subtract a day to the date
+            myDate.setDate(myDate.getDate() - 1);
+            return myDate;
+        }
+        //This function returns minimum and maximum values of an array of numbers(strings are allowed too) 
+        //Return value object with two properties min and max
+        function findMinMaxValueMedical(arr) {
+            var itemsArr = [], i, result = {};
+            for (i = 0; i < arr.length; i++) {
+                itemsArr.push(parseInt(arr[i].Result));
+                if (arr[i].VitalSignTypeID === 2) {
+                    itemsArr.push(parseInt(arr[i].BloodPressureLow));
+                }
+            }
+            result.min = Math.min.apply(null, itemsArr);
+            result.max = Math.max.apply(null, itemsArr);
+            return result;
+        }
+        //  ------------------------------ Initialize grid manager
+        var gridManager = new ControlManager({
+            selector: gridMTestsContainer,
+            create: function(data) {
+                $(gridMTestsContainer).show();
+                $(gridMTests).igGrid({
+                    width: "100%",
+                    height: "100%",
+                    autoGenerateColumns: false,
+                    dataSource: data.dataView(),
+                    columns: [
+                        { headerText: locMedTests.Time, key: "Timestamp", dataType: "date" },
+                        { headerText: locMedTests.TestType, key: "TestTypeName", dataType: "string" },
+                        { headerText: locMedTests.Value, key: "Result", dataType: "string" }
+                    ],
+                    features: [
+                        {
+                            name: "Sorting",
+                            type: "local",
+                            columnSettings : [
+                                { columnKey: "Time", allowSorting: false }, 
+                                { columnKey: "TestTypeName",  allowSorting: false }, 
+                                { columnKey: "Result",  allowSorting: true }
+                            ]
+                        }
+                    ]
+                });
+            },
+            updateData: function(data) {
+                $(gridMTests).igGrid("dataSourceObject", data.dataView());
+                $(gridMTests).igGrid("option", "columns", [
+                        { headerText: locMedTests.Time, key: "Timestamp", dataType: "date" },
+                        { headerText: locMedTests.TestType, key: "TestTypeName", dataType: "string" },
+                        { headerText: locMedTests.Value, key: "Result", dataType: "string" }
+                ])
+                $(gridMTests).igGrid("dataBind");
+            }
+        });
+
+        //  ------------------------------ Image view manager
+        var selectedItemTemplate = "<div><div class='imageViewer maximizedItemTemplate'><img style='width:100%;height: 80%' src='${imageSource}' /><div>${imageDateTime}</div></div>" +
+                                    "<div style='width:100%; height: 100%; overflow: hidden;' class='minimizedItemTemplate'><img style='width:100%;height: 100%;' src='${imageSource}' /></div></div>";
+        
+        var initializeImageViewer = function (dataSource) {
+            var i, dataLen,
+                $imageViewer = $(imageViewSelector),
+                imgSrcPrefix = '@Url.Content("~/Content/images/medTest/")',
+                content = "";
+
+            for (i = 0, dataLen = dataSource.length; i < dataLen; i++) {
+                if (!isNumericTestType(dataSource[i].TestTypeID)) {
+                    content += $.ig.tmpl(selectedItemTemplate, {
+                            "imageSource": imgSrcPrefix + dataSource[i].Result,
+                            "imageDateTime": loc.mainViewDateFormat(dataSource[i].Timestamp.toString())
+                        });
+                }
+            }
+
+            $imageViewer
+                .html(content)
+                .igTileManager({
+                    minimizedState: ".minimizedItemTemplate",
+                    maximizedState: ".maximizedItemTemplate",
+                    animationDuration: 150,
+                    tileMinimized: function (evt, ui) {
+                        ui.owner.element.children(".ui-igtilemanager-left").css("height", "100%");
+                    },
+                    rendered: function (evt, ui) {
+                        var interval = setInterval(function () {
+                            if ($(':animated').length === 0 && $imageViewer.is(':visible')) {
+                                $imageViewer.igTileManager("reflow", true);
+                                clearInterval(interval);
+                            }
+                        }, 150);
+                    }
+                });
+        }
+
+        var imageViewManager = new ControlManager({
+            self: this,
+            selector: imageViewSelector,
+            create: function (data) {
+                var dataSource = data.dataView();
+                //Here we expect we have data so we call directly initialize of the Image VIewer
+                initializeImageViewer(dataSource);
+                $(imageViewSelector).hide();
+            },
+            updateData: function(data) { 
+                var content = "", dataSource = data.dataView();
+                
+                if ($(imageViewSelector).is(":data('igTileManager')")) {// true
+                    $(imageViewSelector).igTileManager("destroy");
+                }
+                if (dataSource.length > 0 && !isNumericTestType(dataSource[0].TestTypeID)) {
+                    initializeImageViewer(dataSource);
+                }
+                else {  //  Display a no data message to the user
+                    content = "<label class='noDataLabel'>" + locMedTests.NoData + "</label>";
+                    $(imageViewSelector).html(content);
+                }
+            }
+        });
+        
+        //  ------------------------------ Initialize view mode
+        this.viewMode = new ViewMode({
+            viewMode: "image",
+            modeHandlers: {
+                "chart": {
+                    name: "chart",
+                    hide: chartManager.hide,
+                    show: chartManager.show,
+                    exportImageAndHide: function () {
+                        var img = $(chartSelector).igDataChart("exportImage");
+                        img.id = "chartExportedImage";
+                        img = $(img);
+                        img.css("width", "100%");
+                        img.css("height", "100%");
+                        $(".tests").children(".tileContent").append(img);
+                        $(chartSelector).hide();
+                    },
+                    showChartAndRemoveImage: function() {
+                        $(chartSelector).show();
+                        $(".tests").children(".tileContent").children("#chartExportedImage").remove();
+                    },
+                    icon: '@Url.Content("~/Content/images/GridMode.png")',
+                    class: 'headingChartIcon gridSelectIcon',
+                    nextMode: "grid"
+                },
+                "grid": {
+                    name: "grid",
+                    hide: function() {
+                        gridManager.hide();
+                        $("#cbxMTestsType").hide();
+                    },
+                    show: function() {
+                        gridManager.show();
+                        $("#cbxMTestsType").hide();
+                    },
+                    icon: '@Url.Content("~/Content/images/ChartMode.png")',
+                    class: 'headingChartIcon chartSelectIcon',
+                    nextMode: function() {
+                        return getChartOrImageMode($("#cbxMTestsType").igCombo("value"));
+                    }
+                },
+                "image": {
+                    name: "image",
+                    hide: imageViewManager.hide,
+                    show: function(data) {
+                        var interval = setInterval(function () {
+                            if ($(':animated').length === 0) {
+                                imageViewManager.show();
+                                clearInterval(interval);
+                            }
+                        }, 320);
+                    },
+                    icon: '@Url.Content("~/Content/images/GridMode.png")',
+                    nextMode: "grid"
+                }
+            },
+            viewModeChanged: function (viewMode) { 
+                $("#btnMGridChart span").attr("class", this.modeHandlers[viewMode].class);
+            }
+        });
+
+        //  ------------------------------ Initialize chart series mode
+        this.chartMode = new ViewMode({
+            viewMode: "column",
+            modeHandlers: {
+                "line": {
+                    show: function () { 
+                        updateChartSeries(createCategorySeries("line"));
+                    }
+                },
+                "column": {
+                    show: function () { 
+                        updateChartSeries(createCategorySeries("column"));
+                    }
+                },
+                "spline": {
+                    show: function () { 
+                        updateChartSeries(createCategorySeries("spline"));
+                    }
+                },
+                "area": {
+                    show: function () { 
+                        updateChartSeries(createCategorySeries("area"));
+                    }
+                },
+                "splineArea": {
+                    show: function () { 
+                        updateChartSeries(createCategorySeries("splineArea"));
+                    }
+                }
+            }
+        });
+
+        //  ------------------------------ Initialize view
+        initCombo();
+
+        $(chartSelector).hide();
+        $(gridMTestsContainer).hide();
+        $(imageViewSelector).hide();
+
+        //  Grid/Chart mode button
+        $(document).delegate("#btnMGridChart", "click", function () {
+            thisTile.viewMode.nextMode();
+            if (thisTile.viewMode.viewMode === "grid") {
+                $("#McategoryButtons").hide();
+                $("#cbxMTestsType").hide();
+
+            } else {
+                $("#cbxMTestsType").show();
+                var item = $("#cbxMTestsType").igCombo("selectedItems")[0];
+                //The value key is bound to the ID of the tests context, which stays for testType
+                if (isNumericTestType(item.data.ID)) {
+                    $("#McategoryButtons").show();
+                }
+                
+            }
+        });
+
+        //  Chart series type buttons
+        $(document).delegate("#McategoryButtons a", "click", function (buttonId) {
+            thisTile.chartMode.toggleMode($(this).attr("data-chartSeries"));
+
+        });
+
+        //  ------------------------------ Public Methods
+
+        //  Gets the medical tests data about the admittance provided and
+        //  updates all visual elements
+        this.showTests = function (selectedAdmittance) {
+            initDataSource(selectedAdmittance);
+        };
+
+        function changeSelectedTest(test) {
+            $("#selectedTest").fadeOut();
+            setTimeout(function () {
+                $("#selectedTest").text(test);
+            }, 400);
+            
+            $("#selectedTest").fadeIn(700);
+        }
+        //  ------------------------------ Private Methods
+        //  Initializes the combo box to select different medical test types
+        function initCombo() {
+            $("#cbxMTestsType").igCombo({
+                dataSource: '@Url.Action("GetMedTestsTypes")',
+                textKey: "Name",
+                valueKey: "ID",
+                initialSelectedItems: [{ index: 0}],
+                mode: "dropdown",
+                enableClearButton: false,
+                selectionChanged: function (evt, ui) {
+                    var selectedTest = ui.items[0].data.ID;
+                    thisTile.currentDSIndex = selectedTest;
+                    changeSelectedTest(ui.items[0].data.Name);
+                    //  Filter the data source depending on the selected medical test
+                    thisTile.dataSource.filter([
+                        {
+                            fieldName: "TestTypeID",
+                            cond: "equals",
+                            expr: selectedTest
+                        }],
+                        "AND",
+                        false
+                    );
+                    //  Select chart or image mode depending on the selected medical test
+                    if (!isNumericTestType(thisTile.currentDSIndex)) {
+                        $("#McategoryButtons").hide();
+                    } else {
+                        $("#McategoryButtons").show();
+                    }
+                    thisTile.viewMode.toggleMode(getChartOrImageMode(selectedTest));
+                    //  Notify the tile that data has been updated
+                    dataUpdated(thisTile.dataSource);
+                },
+                itemsRendered: function (evt, ui) {
+                    //We Select Hemoglobin from the dropdown initially
+                	thisTile.currentDSIndex = ui.items[0].data.ID;
+                    var test = $("#cbxMTestsType").igCombo("selectedItems")[0];
+                    //Initially we have ImageViewer enabled 
+                    $("#McategoryButtons").hide();
+                    changeSelectedTest(test.data.Name);
+                }
+            });
+        }
+
+        //  Returns true if this is a numeric type of medical test.
+        //  Returns false if this is another (image) type of medical test.
+        function isNumericTestType(testType) {
+            return (testType >= 4 && testType <= 10);
+        }
+
+        function getChartOrImageMode(selectedTestType) {
+            return isNumericTestType(selectedTestType) ? "chart" : "image";
+        }
+
+        //  Submits an AJAX POST request for the medical test data of the provided admittance.
+        //  Calls the testsDataSuccess method in case a correct response is returned.
+        function initDataSource(selectedAdmittance) {
+            $.post('@Url.Action("GetTestsData")', { "admittanceID": selectedAdmittance.AdmittanceID })
+                .success(testsDataSuccess);
+        }
+
+        //  Creates a new local data source with the data returned for the selected admittance.
+        //  Passes the data source to the view mode controller to update the current view.
+        function testsDataSuccess(data, textStatus, jqXHR) {
+            //  Wrap new patient admittance data in a data source object
+            var ds = new $.ig.DataSource({
+                type: "json",
+                dataSource: data,
+                schema: {
+                    fields: [
+                        { name: "ID" },
+                        { name: "TestTypeID" },
+                        { name: "TestTypeName" },
+                        { name: "AdmittanceID" },
+                        { name: "Timestamp", type: "date" },
+                        { name: "Result" },
+                        { name: "BodyRegionID" }
+                    ]
+                }
+            });
+            ds.dataBind();
+            //  Filter based on the currently selected medical test type
+            ds.filter([{
+                    fieldName: "TestTypeID",
+                    cond: "equals",
+                    expr: $("#cbxMTestsType").igCombo("value") || 5
+                }],
+                "AND",
+                false
+            );
+            //  Notify the tile that data has been updated
+            dataUpdated(ds);
+        }
+
+        //  Implments logic to notify all controls that data has been updated and
+        //  updates the whole view in general
+        function dataUpdated(data) {
+            thisTile.dataSource = data;
+            chartManager.update(data);
+            gridManager.update(data);
+
+            imageViewManager.update(data);
+
+            thisTile.viewMode.UpdateCurrentView(data);
+            $("#tileTests").unblock();
+        }
+
+        //  Helper method to create a basic category series object
+        function createCategorySeries(seriesType) {
+            return {
+                name: "vsData",
+                type: seriesType,
+                xAxis: "xAxis",
+                isTransitionInEnabled: true,
+                yAxis: "yAxis",
+                markerTemplate: seriesType == 'column' ? barTestsTextualMarker : testsTextualMarker,
+                valueMemberPath: "Result"
+            };
+        }
+
+        //  Changes the chart series displayed
+        function updateChartSeries(newSeries) {
+            var chart = $(chartSelector);
+            chart.igDataChart("option", "series", [{ name: newSeries.name, remove: true}]);
+            chart.igDataChart("option", "series", [ newSeries ]);
+        }
+    }
+</script>
+<div class="tileHeading">
+    <div class="subHeading">
+        <span class="medicalTileInfo"><span class="subHeadingIcon testsHeadingIcon">&nbsp;</span>
+        <label class="tileUIElement tileTitle" data-localize="Tests">Medical Tests</label>
+            <span id="selectedTest" class="tileTitle selectedResource"></span></span>
+        <span class="rightAligned rightAlignedFix">
+            <span id="cbxMTestsType"></span>
+        </span>
+        <a id="btnMGridChart" class="tileUIElement rightAligned">
+            <span class="headingChartIcon gridSelectIcon">&nbsp;</span>
+        </a>
+        <span id="McategoryButtons" class="rightAligned">
+
+            <a class="tileUIElement" data-chartSeries="column" id="btnMCColumn">
+                <span class="headingChartIcon columnChartIcon">&nbsp;</span>
+            </a>
+
+            <a class="tileUIElement" data-chartSeries="line">
+                <span class="headingChartIcon lineChartIcon">&nbsp;</span>
+            </a>
+
+            <a class="tileUIElement" data-chartSeries="spline">
+                <span class="headingChartIcon splineChartIcon">&nbsp;</span>
+            </a>
+
+            <a class="tileUIElement" data-chartSeries="area">
+                <span class="headingChartIcon areaChartIcon">&nbsp;</span>
+            </a>
+
+            <a class="tileUIElement" data-chartSeries="splineArea">
+                <span class="headingChartIcon splineAreaChartIcon">&nbsp;</span>
+            </a>
+
+        </span>
+    </div>
+</div>
+<div class="tileContent">
+    <div id="gridMTestsContainer" style="width: 100%; height: 100%" >
+        <table id="gridMTests"></table>
+    </div>
+
+    <div id="chartMTests"></div>
+    <div id="imageTestsResults" style="width: 100%; height: 100%; overflow: scroll;" ></div>
+</div>
+<div class="minimizedContainer">
+     <div class="innerContainer">
+        <span data-localize="Tests">Medical Tests</span>
+         <img src="@Url.Content("~/Content/images/tileIcons/tileTests.png")" alt="test" />
+    </div>
+</div>
